@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>2</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>External</elementName>
+      <elementAttributes>
+        <entry>
+          <string>applicationType</string>
+          <appType>IVERILOG</appType>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>comparador_85</string>
+        </entry>
+        <entry>
+          <string>externalInputs</string>
+          <string>A:4,B:4,ALBi,AGBi,AEBi</string>
+        </entry>
+        <entry>
+          <string>Width</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>Code</string>
+          <string>module comparador_85 (ALBi, AGBi, AEBi, A, B, ALBo, AGBo, AEBo);
+
+    input[3:0] A, B;
+    input      ALBi, AGBi, AEBi;
+    output     ALBo, AGBo, AEBo;
+    wire[4:0]  CSL, CSG;
+
+    assign CSL  = ~A + B + ALBi;
+    assign ALBo = ~CSL[4];
+    assign CSG  = A + ~B + AGBi;
+    assign AGBo = ~CSG[4];
+    assign AEBo = ((A == B) &amp;&amp; AEBi);
+
+endmodule /* comparador_85 */</string>
+        </entry>
+        <entry>
+          <string>externalOutputs</string>
+          <string>ALBo,AGBo,AEBo</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>AGBo</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="900" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>AEBo</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="520"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ALBo</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="900" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ALBi</string>
+        </entry>
+      </elementAttributes>
+      <pos x="900" y="540"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>AGBi</string>
+        </entry>
+      </elementAttributes>
+      <pos x="900" y="580"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>AEBi</string>
+        </entry>
+      </elementAttributes>
+      <pos x="900" y="620"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="1200" y="480"/>
+      <p2 x="1360" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="480"/>
+      <p2 x="1040" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="500"/>
+      <p2 x="1280" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="920" y="500"/>
+      <p2 x="1040" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="580"/>
+      <p2 x="960" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="1280" y="520"/>
+      <p2 x="1360" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="520"/>
+      <p2 x="1040" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1280" y="440"/>
+      <p2 x="1360" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="440"/>
+      <p2 x="960" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="460"/>
+      <p2 x="1280" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="460"/>
+      <p2 x="1040" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="380"/>
+      <p2 x="1000" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="540"/>
+      <p2 x="920" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="540"/>
+      <p2 x="1040" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="620"/>
+      <p2 x="1000" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="1280" y="500"/>
+      <p2 x="1280" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1280" y="440"/>
+      <p2 x="1280" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="440"/>
+      <p2 x="960" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="520"/>
+      <p2 x="960" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="380"/>
+      <p2 x="1000" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="540"/>
+      <p2 x="1000" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="920" y="500"/>
+      <p2 x="920" y="540"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>
