@@ -1,0 +1,40 @@
+# Compile of comparador_85.v was successful.
+# Compile of contador_163.v was successful.
+# Compile of exp4_fluxo_dados.v was successful.
+# Compile of exp4_fluxo_dados_tb.v was successful.
+# Compile of registrador_4.v was successful.
+# Compile of sync_rom_16x4.v was successful.
+# 6 compiles, 0 failed with no errors.
+vsim -gui work.exp4_fluxo_dados_tb
+# vsim -gui work.exp4_fluxo_dados_tb 
+# Start time: 15:30:08 on Jan 28,2024
+# Loading work.exp4_fluxo_dados_tb
+# Loading work.exp4_fluxo_dados
+# Loading work.contador_163
+# Loading work.sync_rom_16x4
+# Loading work.registrador_4
+# Loading work.comparador_85
+add wave -position insertpoint  \
+sim:/exp4_fluxo_dados_tb/clockPeriod \
+sim:/exp4_fluxo_dados_tb/clock_in \
+sim:/exp4_fluxo_dados_tb/zeraC_in \
+sim:/exp4_fluxo_dados_tb/contaC_in \
+sim:/exp4_fluxo_dados_tb/zeraR_in \
+sim:/exp4_fluxo_dados_tb/registraR_in \
+sim:/exp4_fluxo_dados_tb/chaves_in \
+sim:/exp4_fluxo_dados_tb/chavesIgualMemoria_out \
+sim:/exp4_fluxo_dados_tb/fimC_out \
+sim:/exp4_fluxo_dados_tb/contagem_out \
+sim:/exp4_fluxo_dados_tb/memoria_out \
+sim:/exp4_fluxo_dados_tb/chaves_out
+add wave -position insertpoint  \
+sim:/exp4_fluxo_dados_tb/dut/s_endereco \
+sim:/exp4_fluxo_dados_tb/dut/s_chaves
+run -all
+# Inicio da simulacao
+# Fim da simulacao
+# ** Note: $stop    : D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/exp4_fluxo_dados_tb.v(166)
+#    Time: 890 ns  Iteration: 0  Instance: /exp4_fluxo_dados_tb
+# Break in Module exp4_fluxo_dados_tb at D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/exp4_fluxo_dados_tb.v line 166
+# End time: 15:38:51 on Jan 28,2024, Elapsed time: 0:08:43
+# Errors: 0, Warnings: 2

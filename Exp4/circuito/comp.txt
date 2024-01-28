@@ -1,0 +1,9 @@
+# Para compilar: iverilog -o tb.vvp -c comp.txt
+# Para rodar: vvp tb.vvp
+
+comparador_85.v
+contador_163.v
+exp4_fluxo_dados_tb.v
+exp4_fluxo_dados.v
+registrador_4.v
+sync_rom_16x4.v

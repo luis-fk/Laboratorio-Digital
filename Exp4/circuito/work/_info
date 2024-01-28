@@ -1,0 +1,149 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/intelFPGA_lite/20.1
+vcomparador_85
+Z0 !s110 1706466600
+!i10b 1
+!s100 bckB8^W=VE]I2a21^PB@D0
+Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IOYJH^zZWGdBnF33hH]7;d1
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 dD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito
+w1705009664
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/comparador_85.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/comparador_85.v
+!i122 12
+L0 16 14
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z5 !s108 1706466600.000000
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/comparador_85.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/comparador_85.v|
+!i113 1
+Z6 o-work work
+Z7 tCvgOpt 0
+vcontador_163
+R0
+!i10b 1
+!s100 6=fooWYYcI>Cc<hNlg?mi3
+R1
+IU3:An]i1>jPMoR[RQA:zZ1
+R2
+R3
+w1706016976
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/contador_163.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/contador_163.v
+!i122 13
+L0 16 20
+R4
+r1
+!s85 0
+31
+R5
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/contador_163.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/contador_163.v|
+!i113 1
+R6
+R7
+vexp4_fluxo_dados
+R0
+!i10b 1
+!s100 aJaRgedXbKVcDf@c3ZMRQ3
+R1
+IDXlA:ZGVP?<nNm9[T`n@@3
+R2
+R3
+w1706466105
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/exp4_fluxo_dados.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/exp4_fluxo_dados.v
+!i122 14
+L0 17 65
+R4
+r1
+!s85 0
+31
+R5
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/exp4_fluxo_dados.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/exp4_fluxo_dados.v|
+!i113 1
+R6
+R7
+vexp4_fluxo_dados_tb
+R0
+!i10b 1
+!s100 Z=6YM^zMb]2>E3c1UJY9C2
+R1
+Ii7H0DeY947I1Rg;RWJLVb3
+R2
+R3
+w1705969340
+8D:\Studies\materiais\LabDigi\baguncinha-labdigi\Exp4\circuito\exp4_fluxo_dados_tb.v
+FD:\Studies\materiais\LabDigi\baguncinha-labdigi\Exp4\circuito\exp4_fluxo_dados_tb.v
+!i122 15
+L0 19 151
+R4
+r1
+!s85 0
+31
+R5
+!s107 D:\Studies\materiais\LabDigi\baguncinha-labdigi\Exp4\circuito\exp4_fluxo_dados_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:\Studies\materiais\LabDigi\baguncinha-labdigi\Exp4\circuito\exp4_fluxo_dados_tb.v|
+!i113 1
+R6
+R7
+vregistrador_4
+R0
+!i10b 1
+!s100 45NaE0zN5R1c;nb0e8L`23
+R1
+I8G3FDF2?5]j1:_Yoe^83H0
+R2
+R3
+Z8 w1705938000
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/registrador_4.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/registrador_4.v
+!i122 16
+L0 13 20
+R4
+r1
+!s85 0
+31
+R5
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/registrador_4.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/registrador_4.v|
+!i113 1
+R6
+R7
+vsync_rom_16x4
+!s110 1706466601
+!i10b 1
+!s100 Tz6@dY^L3ZzVgc74FVX5T1
+R1
+I[^T?NjTNRbU5@JYaN26G@3
+R2
+R3
+R8
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/sync_rom_16x4.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/sync_rom_16x4.v
+!i122 17
+L0 13 27
+R4
+r1
+!s85 0
+31
+R5
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/sync_rom_16x4.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/sync_rom_16x4.v|
+!i113 1
+R6
+R7
