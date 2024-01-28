@@ -1,7 +1,0 @@
-# Para compilar: iverilog -o tb -c comp.txt
-# Para executar: vvp tb
-
-contador_163.v
-comparador_85.v
-circuito_exp3_ativ2_tb.v
-circuito_exp3_ativ2.v
