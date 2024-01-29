@@ -1,0 +1,45 @@
+# Compile of circuito_exp4.v was successful.
+# Compile of circuito_exp4_tb.v was successful.
+# Compile of comparador_85.v was successful.
+# Compile of contador_163.v was successful.
+# Compile of exp4_fluxo_dados.v was successful.
+# Compile of exp4_unidade_controle.v was successful.
+# Compile of hexa7seg.v was successful.
+# Compile of registrador_4.v was successful.
+# Compile of sync_rom_16x4.v was successful.
+# 9 compiles, 0 failed with no errors.
+vsim -gui work.circuito_exp4_tb
+# vsim -gui work.circuito_exp4_tb 
+# Start time: 20:11:55 on Jan 28,2024
+# Loading work.circuito_exp4_tb
+# Loading work.circuito_exp4
+# Loading work.exp4_fluxo_dados
+# Loading work.contador_163
+# Loading work.sync_rom_16x4
+# Loading work.registrador_4
+# Loading work.comparador_85
+# Loading work.exp4_unidade_controle
+# Loading work.hexa7seg
+add wave -position insertpoint  \
+sim:/circuito_exp4_tb/clock_in \
+sim:/circuito_exp4_tb/reset_in \
+sim:/circuito_exp4_tb/iniciar_in \
+sim:/circuito_exp4_tb/chaves_in \
+sim:/circuito_exp4_tb/pronto_out \
+sim:/circuito_exp4_tb/db_igual_out \
+sim:/circuito_exp4_tb/db_iniciar_out \
+sim:/circuito_exp4_tb/caso
+add wave -position insertpoint  \
+sim:/circuito_exp4_tb/dut/fluxo/db_contagem \
+sim:/circuito_exp4_tb/dut/fluxo/db_chaves \
+sim:/circuito_exp4_tb/dut/fluxo/db_memoria
+add wave -position insertpoint  \
+sim:/circuito_exp4_tb/dut/uc/db_estado
+run -all
+# Inicio da simulacao
+# Fim da simulacao
+# ** Note: $stop    : D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/quartus/circuito_exp4_tb.v(173)
+#    Time: 1310 ns  Iteration: 0  Instance: /circuito_exp4_tb
+# Break in Module circuito_exp4_tb at D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/quartus/circuito_exp4_tb.v line 173
+# End time: 20:30:59 on Jan 28,2024, Elapsed time: 0:19:04
+# Errors: 0, Warnings: 2

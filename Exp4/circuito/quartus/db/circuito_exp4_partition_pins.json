@@ -1,0 +1,161 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "pronto",
+					"strict" : false
+				},
+				{
+					"name" : "db_igual",
+					"strict" : false
+				},
+				{
+					"name" : "db_iniciar",
+					"strict" : false
+				},
+				{
+					"name" : "db_contagem[0]",
+					"strict" : false
+				},
+				{
+					"name" : "db_contagem[1]",
+					"strict" : false
+				},
+				{
+					"name" : "db_contagem[2]",
+					"strict" : false
+				},
+				{
+					"name" : "db_contagem[3]",
+					"strict" : false
+				},
+				{
+					"name" : "db_contagem[4]",
+					"strict" : false
+				},
+				{
+					"name" : "db_contagem[5]",
+					"strict" : false
+				},
+				{
+					"name" : "db_contagem[6]",
+					"strict" : false
+				},
+				{
+					"name" : "db_memoria[0]",
+					"strict" : false
+				},
+				{
+					"name" : "db_memoria[1]",
+					"strict" : false
+				},
+				{
+					"name" : "db_memoria[2]",
+					"strict" : false
+				},
+				{
+					"name" : "db_memoria[3]",
+					"strict" : false
+				},
+				{
+					"name" : "db_memoria[4]",
+					"strict" : false
+				},
+				{
+					"name" : "db_memoria[5]",
+					"strict" : false
+				},
+				{
+					"name" : "db_memoria[6]",
+					"strict" : false
+				},
+				{
+					"name" : "db_chaves[0]",
+					"strict" : false
+				},
+				{
+					"name" : "db_chaves[1]",
+					"strict" : false
+				},
+				{
+					"name" : "db_chaves[2]",
+					"strict" : false
+				},
+				{
+					"name" : "db_chaves[3]",
+					"strict" : false
+				},
+				{
+					"name" : "db_chaves[4]",
+					"strict" : false
+				},
+				{
+					"name" : "db_chaves[5]",
+					"strict" : false
+				},
+				{
+					"name" : "db_chaves[6]",
+					"strict" : false
+				},
+				{
+					"name" : "db_estado[0]",
+					"strict" : false
+				},
+				{
+					"name" : "db_estado[1]",
+					"strict" : false
+				},
+				{
+					"name" : "db_estado[2]",
+					"strict" : false
+				},
+				{
+					"name" : "db_estado[3]",
+					"strict" : false
+				},
+				{
+					"name" : "db_estado[4]",
+					"strict" : false
+				},
+				{
+					"name" : "db_estado[5]",
+					"strict" : false
+				},
+				{
+					"name" : "db_estado[6]",
+					"strict" : false
+				},
+				{
+					"name" : "iniciar",
+					"strict" : false
+				},
+				{
+					"name" : "clock",
+					"strict" : false
+				},
+				{
+					"name" : "reset",
+					"strict" : false
+				},
+				{
+					"name" : "chaves[2]",
+					"strict" : false
+				},
+				{
+					"name" : "chaves[3]",
+					"strict" : false
+				},
+				{
+					"name" : "chaves[0]",
+					"strict" : false
+				},
+				{
+					"name" : "chaves[1]",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

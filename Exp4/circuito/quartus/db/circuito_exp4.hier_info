@@ -1,0 +1,239 @@
+|circuito_exp4
+clock => clock.IN2
+reset => reset.IN1
+iniciar => wireIniciar.IN1
+chaves[0] => chaves[0].IN1
+chaves[1] => chaves[1].IN1
+chaves[2] => chaves[2].IN1
+chaves[3] => chaves[3].IN1
+pronto <= exp4_unidade_controle:uc.pronto
+db_igual <= exp4_fluxo_dados:fluxo.chavesIgualMemoria
+db_iniciar <= wireIniciar.DB_MAX_OUTPUT_PORT_TYPE
+db_contagem[0] <= hexa7seg:HEX0.display
+db_contagem[1] <= hexa7seg:HEX0.display
+db_contagem[2] <= hexa7seg:HEX0.display
+db_contagem[3] <= hexa7seg:HEX0.display
+db_contagem[4] <= hexa7seg:HEX0.display
+db_contagem[5] <= hexa7seg:HEX0.display
+db_contagem[6] <= hexa7seg:HEX0.display
+db_memoria[0] <= hexa7seg:HEX1.display
+db_memoria[1] <= hexa7seg:HEX1.display
+db_memoria[2] <= hexa7seg:HEX1.display
+db_memoria[3] <= hexa7seg:HEX1.display
+db_memoria[4] <= hexa7seg:HEX1.display
+db_memoria[5] <= hexa7seg:HEX1.display
+db_memoria[6] <= hexa7seg:HEX1.display
+db_chaves[0] <= hexa7seg:HEX2.display
+db_chaves[1] <= hexa7seg:HEX2.display
+db_chaves[2] <= hexa7seg:HEX2.display
+db_chaves[3] <= hexa7seg:HEX2.display
+db_chaves[4] <= hexa7seg:HEX2.display
+db_chaves[5] <= hexa7seg:HEX2.display
+db_chaves[6] <= hexa7seg:HEX2.display
+db_estado[0] <= hexa7seg:HEX5.display
+db_estado[1] <= hexa7seg:HEX5.display
+db_estado[2] <= hexa7seg:HEX5.display
+db_estado[3] <= hexa7seg:HEX5.display
+db_estado[4] <= hexa7seg:HEX5.display
+db_estado[5] <= hexa7seg:HEX5.display
+db_estado[6] <= hexa7seg:HEX5.display
+
+
+|circuito_exp4|exp4_fluxo_dados:fluxo
+clock => clock.IN3
+chaves[0] => chaves[0].IN1
+chaves[1] => chaves[1].IN1
+chaves[2] => chaves[2].IN1
+chaves[3] => chaves[3].IN1
+zeraR => zeraR.IN1
+registraR => registraR.IN1
+contaC => contaC.IN1
+zeraC => _.IN1
+chavesIgualMemoria <= comparador_85:comparador.AEBo
+fimC <= contador_163:contador.rco
+db_contagem[0] <= s_endereco[0].DB_MAX_OUTPUT_PORT_TYPE
+db_contagem[1] <= s_endereco[1].DB_MAX_OUTPUT_PORT_TYPE
+db_contagem[2] <= s_endereco[2].DB_MAX_OUTPUT_PORT_TYPE
+db_contagem[3] <= s_endereco[3].DB_MAX_OUTPUT_PORT_TYPE
+db_chaves[0] <= s_chaves[0].DB_MAX_OUTPUT_PORT_TYPE
+db_chaves[1] <= s_chaves[1].DB_MAX_OUTPUT_PORT_TYPE
+db_chaves[2] <= s_chaves[2].DB_MAX_OUTPUT_PORT_TYPE
+db_chaves[3] <= s_chaves[3].DB_MAX_OUTPUT_PORT_TYPE
+db_memoria[0] <= s_dado[0].DB_MAX_OUTPUT_PORT_TYPE
+db_memoria[1] <= s_dado[1].DB_MAX_OUTPUT_PORT_TYPE
+db_memoria[2] <= s_dado[2].DB_MAX_OUTPUT_PORT_TYPE
+db_memoria[3] <= s_dado[3].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|circuito_exp4|exp4_fluxo_dados:fluxo|contador_163:contador
+clock => Q[0]~reg0.CLK
+clock => Q[1]~reg0.CLK
+clock => Q[2]~reg0.CLK
+clock => Q[3]~reg0.CLK
+clr => Q.OUTPUTSELECT
+clr => Q.OUTPUTSELECT
+clr => Q.OUTPUTSELECT
+clr => Q.OUTPUTSELECT
+ld => Q.OUTPUTSELECT
+ld => Q.OUTPUTSELECT
+ld => Q.OUTPUTSELECT
+ld => Q.OUTPUTSELECT
+ent => always0.IN0
+ent => always1.IN1
+enp => always0.IN1
+D[0] => Q.DATAB
+D[1] => Q.DATAB
+D[2] => Q.DATAB
+D[3] => Q.DATAB
+Q[0] <= Q[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Q[1] <= Q[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Q[2] <= Q[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+Q[3] <= Q[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+rco <= always1.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|circuito_exp4|exp4_fluxo_dados:fluxo|sync_rom_16x4:mem
+clock => data_out[0]~reg0.CLK
+clock => data_out[1]~reg0.CLK
+clock => data_out[2]~reg0.CLK
+clock => data_out[3]~reg0.CLK
+address[0] => Decoder0.IN3
+address[1] => Decoder0.IN2
+address[2] => Decoder0.IN1
+address[3] => Decoder0.IN0
+data_out[0] <= data_out[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+data_out[1] <= data_out[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+data_out[2] <= data_out[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+data_out[3] <= data_out[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|circuito_exp4|exp4_fluxo_dados:fluxo|registrador_4:reg1
+clock => IQ[0].CLK
+clock => IQ[1].CLK
+clock => IQ[2].CLK
+clock => IQ[3].CLK
+clear => IQ[0].ACLR
+clear => IQ[1].ACLR
+clear => IQ[2].ACLR
+clear => IQ[3].ACLR
+enable => IQ[3].ENA
+enable => IQ[2].ENA
+enable => IQ[1].ENA
+enable => IQ[0].ENA
+D[0] => IQ[0].DATAIN
+D[1] => IQ[1].DATAIN
+D[2] => IQ[2].DATAIN
+D[3] => IQ[3].DATAIN
+Q[0] <= IQ[0].DB_MAX_OUTPUT_PORT_TYPE
+Q[1] <= IQ[1].DB_MAX_OUTPUT_PORT_TYPE
+Q[2] <= IQ[2].DB_MAX_OUTPUT_PORT_TYPE
+Q[3] <= IQ[3].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|circuito_exp4|exp4_fluxo_dados:fluxo|comparador_85:comparador
+ALBi => Add1.IN10
+AGBi => Add3.IN10
+AEBi => AEBo.IN1
+A[0] => Add2.IN8
+A[0] => Equal0.IN3
+A[0] => Add0.IN4
+A[1] => Add2.IN7
+A[1] => Equal0.IN2
+A[1] => Add0.IN3
+A[2] => Add2.IN6
+A[2] => Equal0.IN1
+A[2] => Add0.IN2
+A[3] => Add2.IN5
+A[3] => Equal0.IN0
+A[3] => Add0.IN1
+B[0] => Add0.IN8
+B[0] => Equal0.IN7
+B[0] => Add2.IN4
+B[1] => Add0.IN7
+B[1] => Equal0.IN6
+B[1] => Add2.IN3
+B[2] => Add0.IN6
+B[2] => Equal0.IN5
+B[2] => Add2.IN2
+B[3] => Add0.IN5
+B[3] => Equal0.IN4
+B[3] => Add2.IN1
+ALBo <= Add1.DB_MAX_OUTPUT_PORT_TYPE
+AGBo <= Add3.DB_MAX_OUTPUT_PORT_TYPE
+AEBo <= AEBo.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|circuito_exp4|exp4_unidade_controle:uc
+clock => Eatual~1.DATAIN
+reset => Eatual~3.DATAIN
+iniciar => Eprox.preparacao.DATAB
+iniciar => Selector0.IN2
+fimC => Eprox.fim.DATAB
+fimC => Eprox.proximo.DATAB
+zeraC <= zeraC.DB_MAX_OUTPUT_PORT_TYPE
+contaC <= db_estado[1].DB_MAX_OUTPUT_PORT_TYPE
+zeraR <= zeraC.DB_MAX_OUTPUT_PORT_TYPE
+registraR <= registraR.DB_MAX_OUTPUT_PORT_TYPE
+pronto <= db_estado[3].DB_MAX_OUTPUT_PORT_TYPE
+db_estado[0] <= db_estado.DB_MAX_OUTPUT_PORT_TYPE
+db_estado[1] <= db_estado[1].DB_MAX_OUTPUT_PORT_TYPE
+db_estado[2] <= zeraC.DB_MAX_OUTPUT_PORT_TYPE
+db_estado[3] <= db_estado[3].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|circuito_exp4|hexa7seg:HEX2
+hexa[0] => Decoder0.IN3
+hexa[1] => Decoder0.IN2
+hexa[2] => Decoder0.IN1
+hexa[3] => Decoder0.IN0
+display[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+display[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+display[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+display[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+display[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+display[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+display[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|circuito_exp4|hexa7seg:HEX0
+hexa[0] => Decoder0.IN3
+hexa[1] => Decoder0.IN2
+hexa[2] => Decoder0.IN1
+hexa[3] => Decoder0.IN0
+display[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+display[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+display[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+display[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+display[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+display[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+display[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|circuito_exp4|hexa7seg:HEX1
+hexa[0] => Decoder0.IN3
+hexa[1] => Decoder0.IN2
+hexa[2] => Decoder0.IN1
+hexa[3] => Decoder0.IN0
+display[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+display[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+display[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+display[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+display[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+display[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+display[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|circuito_exp4|hexa7seg:HEX5
+hexa[0] => Decoder0.IN3
+hexa[1] => Decoder0.IN2
+hexa[2] => Decoder0.IN1
+hexa[3] => Decoder0.IN0
+display[0] <= WideOr6.DB_MAX_OUTPUT_PORT_TYPE
+display[1] <= WideOr5.DB_MAX_OUTPUT_PORT_TYPE
+display[2] <= WideOr4.DB_MAX_OUTPUT_PORT_TYPE
+display[3] <= WideOr3.DB_MAX_OUTPUT_PORT_TYPE
+display[4] <= WideOr2.DB_MAX_OUTPUT_PORT_TYPE
+display[5] <= WideOr1.DB_MAX_OUTPUT_PORT_TYPE
+display[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+
+
