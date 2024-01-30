@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>2</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>External</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>circuito_exp4_desafio</string>
+        </entry>
+        <entry>
+          <string>applicationType</string>
+          <appType>IVERILOG</appType>
+        </entry>
+        <entry>
+          <string>externalInputs</string>
+          <string>clock,reset,iniciar,chaves:4</string>
+        </entry>
+        <entry>
+          <string>Width</string>
+          <int>15</int>
+        </entry>
+        <entry>
+          <string>Code</string>
+          <string>module circuito_exp4_desafio (
+    input        clock,
+    input        reset,
+    input        iniciar,
+    input  [3:0] chaves,
+    output       pronto,
+
+    output       acertou,
+    output       errou,
+
+    output       db_igual,
+    output       db_iniciar,
+    output       db_zeraC,
+    output       db_contaC,
+    output       db_fimC,
+    output       db_zeraR,
+    output       db_registraR,
+    output [3:0] db_contagem,
+    output [3:0] db_memoria,
+    output [3:0] db_chaves,
+    output [3:0] db_estado
+);
+
+wire [3:0] s_chaves;
+wire [3:0] s_contagem;
+wire [3:0] s_memoria;
+wire [3:0] s_estado;
+wire wireFimC;
+wire wireIniciar;
+wire wireContaC;
+wire wireZeraC;
+wire wireZeraR;
+wire wireRegistraR;
+wire wireIgual;
+
+assign db_iniciar = wireIniciar;
+assign wireIniciar = iniciar;
+assign db_zeraC = wireZeraC;
+assign db_contaC = wireContaC;
+assign db_fimC = wireFimC;
+assign db_zeraR = wireZeraR;
+assign db_registraR = wireRegistraR;
+assign db_igual = wireIgual;
+assign db_contagem = s_contagem;
+
+exp4_fluxo_dados fluxo (
+    .clock ( clock ),
+    .chaves ( chaves ),
+    .zeraR ( wireZeraR ),
+    .registraR ( wireRegistraR ),
+    .contaC ( wireContaC ),
+    .zeraC ( wireZeraC ),
+    .chavesIgualMemoria ( wireIgual ),
+    .fimC ( wireFimC ),
+    .db_contagem ( s_contagem ),
+    .db_chaves ( s_chaves ),
+    .db_memoria ( s_memoria )
+);
+
+exp4_unidade_controle uc (
+    .clock ( clock ),
+    .reset ( reset ),
+    .iniciar ( wireIniciar ),
+    .fimC ( wireFimC ),
+    .igual ( wireIgual ),
+    .zeraC ( wireZeraC ),
+    .contaC ( wireContaC ),
+    .zeraR ( wireZeraR ),
+    .registraR ( wireRegistraR ),
+    .pronto ( pronto ),
+    .db_estado ( s_estado ),
+    .acertou ( acertou ),
+    .errou ( errou )
+);
+
+hexa7seg HEX2 (
+    .hexa ( s_chaves ),
+    .display ( db_chaves )
+);
+
+hexa7seg HEX0 (
+    .hexa ( s_contagem ),
+    .display ( db_contagem )
+);
+
+hexa7seg HEX1 (
+    .hexa ( s_memoria ),
+    .display ( db_memoria )
+);
+
+hexa7seg HEX5 (
+    .hexa ( s_estado ),
+    .display ( db_estado )
+);
+
+
+endmodule
+
+module comparador_85 (ALBi, AGBi, AEBi, A, B, ALBo, AGBo, AEBo);
+
+    input[3:0] A, B;
+    input      ALBi, AGBi, AEBi;
+    output     ALBo, AGBo, AEBo;
+    wire[4:0]  CSL, CSG;
+
+    assign CSL  = ~A + B + ALBi;
+    assign ALBo = ~CSL[4];
+    assign CSG  = A + ~B + AGBi;
+    assign AGBo = ~CSG[4];
+    assign AEBo = ((A == B) &amp;&amp; AEBi);
+
+endmodule
+
+module contador_163 ( clock, clr, ld, ent, enp, D, Q, rco );
+    input clock, clr, ld, ent, enp;
+    input [3:0] D;
+    output reg [3:0] Q;
+    output reg rco;
+
+	 initial begin
+		Q = 4&apos;d0;
+    end
+	 
+    always @ (posedge clock)
+        if (~clr)               Q &lt;= 4&apos;d0;
+        else if (~ld)           Q &lt;= D;
+        else if (ent &amp;&amp; enp)    Q &lt;= Q + 1;
+        else                    Q &lt;= Q;
+ 
+    always @ (Q or ent)
+        if (ent &amp;&amp; (Q == 4&apos;d15))   rco = 1;
+        else                       rco = 0;
+endmodule
+
+module exp4_fluxo_dados (
+                        input        clock,
+                        input  [3:0] chaves,
+                        input        zeraR,
+                        input        registraR,
+                        input        contaC,
+                        input        zeraC,
+
+                        output       chavesIgualMemoria,
+                        output       fimC,
+                        output [3:0] db_contagem,
+                        output [3:0] db_chaves, 
+                        output [3:0] db_memoria
+);
+    
+    wire ALBo, AGBo;
+    wire [3:0] s_endereco;  // sinal interno para interligacao dos componentes
+    wire [3:0] s_chaves;
+    wire [3:0] s_dado;
+
+    assign db_contagem = s_endereco;
+    assign db_chaves = s_chaves;
+    assign db_memoria = s_dado;
+
+    // contador_163
+    contador_163 contador (
+      .clock( clock ),
+      .clr  ( ~zeraC ),
+      .ld   ( 1&apos;b1 ),
+      .ent  ( 1&apos;b1 ),
+      .enp  ( contaC ),
+      .D    ( 4&apos;b0000 ),
+      .Q    ( s_endereco ),
+      .rco  ( fimC )
+    );
+
+     sync_rom_16x4 mem (
+      .clock   ( clock ),
+      .address ( s_endereco ),
+      .data_out( s_dado )
+     );
+
+     registrador_4 reg1 (
+      .clock ( clock ),
+      .clear ( zeraR ),
+      .enable( registraR ),
+      .D     ( chaves ),
+      .Q     ( s_chaves )
+     );
+
+    // comparador_85
+    comparador_85 comparador (
+      .A   ( s_dado ),
+      .B   ( s_chaves ),
+      .ALBi( 1&apos;b0 ),
+      .AGBi( 1&apos;b0 ),
+      .AEBi( 1&apos;b1 ),
+      .ALBo( ALBo ),
+      .AGBo( AGBo ),
+      .AEBo( chavesIgualMemoria )
+    );
+
+ endmodule
+
+module exp4_unidade_controle (
+    input      clock,
+    input      reset,
+    input      iniciar,
+    input      fimC,
+
+    input      igual,
+
+    output reg zeraC,
+    output reg contaC,
+    output reg zeraR,
+    output reg registraR,
+    output reg pronto,
+    output reg [3:0] db_estado,
+    output reg acertou,
+    output reg errou
+);
+
+    // Define estados
+    parameter inicial    = 4&apos;b0000;  // 0
+    parameter preparacao = 4&apos;b0001;  // 1
+    parameter registra   = 4&apos;b0100;  // 4
+    parameter comparacao = 4&apos;b0101;  // 5
+    parameter proximo    = 4&apos;b0110;  // 6
+    parameter fim        = 4&apos;b1100;  // C
+
+    // Variaveis de estado
+    reg [3:0] Eatual, Eprox;
+
+    // Memoria de estado
+    always @(posedge clock or posedge reset) begin
+        if (reset)
+            Eatual &lt;= inicial;
+        else
+            Eatual &lt;= Eprox;
+    end
+
+    // Logica de proximo estado
+    always @* begin
+        case (Eatual)
+            inicial:     Eprox = iniciar ? preparacao : inicial;
+            preparacao:  Eprox = registra;
+            registra:    Eprox = comparacao;
+            comparacao:  Eprox = (fimC || igual == 1&apos;b0) ? fim : proximo; 
+            proximo:     Eprox = registra;
+            fim:         Eprox = inicial;
+            default:     Eprox = inicial;
+        endcase
+    end
+
+    // Logica de saida (maquina Moore)
+    always @* begin
+        zeraC     = (Eatual == inicial || Eatual == preparacao) ? 1&apos;b1 : 1&apos;b0;
+        zeraR     = (Eatual == inicial || Eatual == preparacao) ? 1&apos;b1 : 1&apos;b0;
+        registraR = (Eatual == registra) ? 1&apos;b1 : 1&apos;b0;
+        contaC    = (Eatual == proximo) ? 1&apos;b1 : 1&apos;b0;
+        pronto    = (Eatual == fim) ? 1&apos;b1 : 1&apos;b0; 
+        acertou   = (Eatual == fim &amp;&amp; igual == 1&apos;b1) ? 1&apos;b1 : 1&apos;b0; 
+        errou     = (igual == 1&apos;b0 &amp;&amp; Eatual == fim) ? 1&apos;b1 : 1&apos;b0;               
+                                                      
+
+        // Saida de depuracao (estado)
+        case (Eatual)
+            inicial:     db_estado = 4&apos;b0000;  // 0
+            preparacao:  db_estado = 4&apos;b0001;  // 1
+            registra:    db_estado = 4&apos;b0100;  // 4
+            comparacao:  db_estado = 4&apos;b0101;  // 5
+            proximo:     db_estado = 4&apos;b0110;  // 6
+            fim:         db_estado = 4&apos;b1100;  // C
+            default:     db_estado = 4&apos;b1111;  // F
+        endcase
+    end
+
+endmodule
+
+module hexa7seg (hexa, display);
+    input      [3:0] hexa;
+    output reg [3:0] display;
+
+    /*
+     *    ---
+     *   | 0 |
+     * 5 |   | 1
+     *   |   |
+     *    ---
+     *   | 6 |
+     * 4 |   | 2
+     *   |   |
+     *    ---
+     *     3
+     */
+        
+    always @(hexa)
+    case (hexa)
+        4&apos;h0:    display = 4&apos;h0;
+        4&apos;h1:    display = 4&apos;h1;
+        4&apos;h2:    display = 4&apos;h2;
+        4&apos;h3:    display = 4&apos;h3;
+        4&apos;h4:    display = 4&apos;h4;
+        4&apos;h5:    display = 4&apos;h5;
+        4&apos;h6:    display = 4&apos;h6;
+        4&apos;h7:    display = 4&apos;h7;
+        4&apos;h8:    display = 4&apos;h8;
+        4&apos;h9:    display = 4&apos;h9;
+        4&apos;ha:    display = 4&apos;ha;
+        4&apos;hb:    display = 4&apos;hb;
+        4&apos;hc:    display = 4&apos;hc;
+        4&apos;hd:    display = 4&apos;hd;
+        4&apos;he:    display = 4&apos;he;
+        4&apos;hf:    display = 4&apos;hf;
+        default: display = 4&apos;h0;
+    endcase
+endmodule
+
+module registrador_4 (
+    input        clock,
+    input        clear,
+    input        enable,
+    input  [3:0] D,
+    output [3:0] Q
+);
+
+    reg [3:0] IQ;
+
+    always @(posedge clock or posedge clear) begin
+        if (clear)
+            IQ &lt;= 0;
+        else if (enable)
+            IQ &lt;= D;
+    end
+
+    assign Q = IQ;
+
+endmodule
+
+module sync_rom_16x4 (clock, address, data_out);
+    input            clock;
+    input      [3:0] address;
+    output reg [3:0] data_out;
+
+    always @ (posedge clock)
+    begin
+        case (address)
+            4&apos;b0000: data_out = 4&apos;b0001;
+            4&apos;b0001: data_out = 4&apos;b0010;
+            4&apos;b0010: data_out = 4&apos;b0100;
+            4&apos;b0011: data_out = 4&apos;b1000;
+            4&apos;b0100: data_out = 4&apos;b0100;
+            4&apos;b0101: data_out = 4&apos;b0010;
+            4&apos;b0110: data_out = 4&apos;b0001;
+            4&apos;b0111: data_out = 4&apos;b0001;
+            4&apos;b1000: data_out = 4&apos;b0010;
+            4&apos;b1001: data_out = 4&apos;b0010;
+            4&apos;b1010: data_out = 4&apos;b0100;
+            4&apos;b1011: data_out = 4&apos;b0100;
+            4&apos;b1100: data_out = 4&apos;b1000;
+            4&apos;b1101: data_out = 4&apos;b1000;
+            4&apos;b1110: data_out = 4&apos;b0001;
+            4&apos;b1111: data_out = 4&apos;b0100;
+        endcase
+    end
+endmodule</string>
+        </entry>
+        <entry>
+          <string>externalOutputs</string>
+          <string>pronto,acertou,errou,db_igual,db_iniciar,db_zeraC,db_contaC,db_fimC,db_zeraR,db_registraR,db_contagem:4,db_memoria:4,db_chaves:4,db_estado:4</string>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes/>
+      <pos x="520" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes/>
+      <pos x="520" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="1240" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="1240" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="1240" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="1240" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="1240" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="1240" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="1240" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="1240" y="520"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="1240" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes/>
+      <pos x="1240" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="1380" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="1480" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="1580" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="1680" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Button</elementName>
+      <elementAttributes/>
+      <pos x="520" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Seven-Seg-Hex</elementName>
+      <elementAttributes/>
+      <pos x="1320" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Seven-Seg-Hex</elementName>
+      <elementAttributes/>
+      <pos x="1420" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Seven-Seg-Hex</elementName>
+      <elementAttributes/>
+      <pos x="1520" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Seven-Seg-Hex</elementName>
+      <elementAttributes/>
+      <pos x="1620" y="460"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="520" y="320"/>
+      <p2 x="740" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="320"/>
+      <p2 x="1240" y="320"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="480"/>
+      <p2 x="1240" y="480"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="640"/>
+      <p2 x="1460" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="420"/>
+      <p2 x="740" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="420"/>
+      <p2 x="1120" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="580"/>
+      <p2 x="1140" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="360"/>
+      <p2 x="720" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="360"/>
+      <p2 x="1060" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="1120" y="360"/>
+      <p2 x="1240" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="1220" y="520"/>
+      <p2 x="1240" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="520"/>
+      <p2 x="1200" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="680"/>
+      <p2 x="1660" y="680"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="460"/>
+      <p2 x="1160" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="620"/>
+      <p2 x="1360" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="620"/>
+      <p2 x="1100" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="400"/>
+      <p2 x="740" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="400"/>
+      <p2 x="1100" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="400"/>
+      <p2 x="1240" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="240"/>
+      <p2 x="1240" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="560"/>
+      <p2 x="1240" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="560"/>
+      <p2 x="1160" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="500"/>
+      <p2 x="1220" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="1120" y="660"/>
+      <p2 x="1560" y="660"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="440"/>
+      <p2 x="720" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="440"/>
+      <p2 x="1140" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="440"/>
+      <p2 x="1240" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="1080" y="280"/>
+      <p2 x="1240" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="1180" y="600"/>
+      <p2 x="1240" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="600"/>
+      <p2 x="1120" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="380"/>
+      <p2 x="740" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="380"/>
+      <p2 x="1080" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="540"/>
+      <p2 x="1180" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="1120" y="360"/>
+      <p2 x="1120" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1120" y="600"/>
+      <p2 x="1120" y="660"/>
+    </wire>
+    <wire>
+      <p1 x="740" y="320"/>
+      <p2 x="740" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="240"/>
+      <p2 x="1060" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="1220" y="500"/>
+      <p2 x="1220" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="1380" y="600"/>
+      <p2 x="1380" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="440"/>
+      <p2 x="1160" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="560"/>
+      <p2 x="1160" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="1480" y="600"/>
+      <p2 x="1480" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="320"/>
+      <p2 x="1100" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1100" y="620"/>
+      <p2 x="1100" y="680"/>
+    </wire>
+    <wire>
+      <p1 x="1580" y="600"/>
+      <p2 x="1580" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="360"/>
+      <p2 x="720" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="420"/>
+      <p2 x="720" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="1200" y="520"/>
+      <p2 x="1200" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="1360" y="600"/>
+      <p2 x="1360" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="1680" y="600"/>
+      <p2 x="1680" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="400"/>
+      <p2 x="1140" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="580"/>
+      <p2 x="1140" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="1460" y="600"/>
+      <p2 x="1460" y="640"/>
+    </wire>
+    <wire>
+      <p1 x="1080" y="280"/>
+      <p2 x="1080" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="1560" y="600"/>
+      <p2 x="1560" y="660"/>
+    </wire>
+    <wire>
+      <p1 x="1180" y="540"/>
+      <p2 x="1180" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="1660" y="600"/>
+      <p2 x="1660" y="680"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

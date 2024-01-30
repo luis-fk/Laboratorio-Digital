@@ -19,14 +19,14 @@
 #
 # Quartus Prime
 # Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
-# Date created = 19:39:53  January 28, 2024
+# Date created = 02:22:13  January 30, 2024
 #
 # -------------------------------------------------------------------------- #
 #
 # Notes:
 #
 # 1) The default values for assignments are stored in the file:
-#		circuito_exp4_assignment_defaults.qdf
+#		circuito_exp4_desafio_assignment_defaults.qdf
 #    If this file doesn't exist, see file:
 #		assignment_defaults.qdf
 #
@@ -39,10 +39,20 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CEBA4F23C7
-set_global_assignment -name TOP_LEVEL_ENTITY circuito_exp4
+set_global_assignment -name TOP_LEVEL_ENTITY circuito_exp4_desafio
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.1
-set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:39:53  JANUARY 28, 2024"
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "02:22:13  JANUARY 30, 2024"
 set_global_assignment -name LAST_QUARTUS_VERSION "20.1.1 Lite Edition"
+set_global_assignment -name VERILOG_FILE sync_rom_16x4.v
+set_global_assignment -name VERILOG_FILE registrador_4.v
+set_global_assignment -name VERILOG_FILE hexa7seg.v
+set_global_assignment -name VERILOG_FILE exp4_unidade_controle.v
+set_global_assignment -name VERILOG_FILE exp4_fluxo_dados_tb.v
+set_global_assignment -name VERILOG_FILE exp4_fluxo_dados.v
+set_global_assignment -name VERILOG_FILE contador_163.v
+set_global_assignment -name VERILOG_FILE comparador_85.v
+set_global_assignment -name VERILOG_FILE circuito_exp4_desafio_tb.v
+set_global_assignment -name VERILOG_FILE circuito_exp4_desafio.v
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -52,21 +62,21 @@ set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 256
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_N16 -to clock
+set_location_assignment PIN_B16 -to reset
+set_location_assignment PIN_U13 -to iniciar
+set_location_assignment PIN_V13 -to chaves[0]
+set_location_assignment PIN_T13 -to chaves[1]
+set_location_assignment PIN_T12 -to chaves[2]
+set_location_assignment PIN_AA15 -to chaves[3]
 set_location_assignment PIN_AA2 -to pronto
 set_location_assignment PIN_AA1 -to db_igual
 set_location_assignment PIN_W2 -to db_iniciar
-set_location_assignment PIN_U13 -to iniciar
-set_location_assignment PIN_N16 -to clock
-set_location_assignment PIN_B16 -to reset
-set_location_assignment PIN_AA15 -to chaves[3]
-set_location_assignment PIN_T12 -to chaves[2]
-set_location_assignment PIN_T13 -to chaves[1]
-set_location_assignment PIN_V13 -to chaves[0]
+set_location_assignment PIN_L2 -to acertou
+set_location_assignment PIN_L1 -to errou
 set_location_assignment PIN_N2 -to db_zeraC
 set_location_assignment PIN_N1 -to db_contaC
 set_location_assignment PIN_U2 -to db_fimC
-set_location_assignment PIN_L2 -to db_zeraR
-set_location_assignment PIN_L1 -to db_registraR
 set_location_assignment PIN_U21 -to db_contagem[0]
 set_location_assignment PIN_V21 -to db_contagem[1]
 set_location_assignment PIN_W22 -to db_contagem[2]
@@ -96,13 +106,3 @@ set_location_assignment PIN_C1 -to db_estado[4]
 set_location_assignment PIN_C2 -to db_estado[5]
 set_location_assignment PIN_W19 -to db_estado[6]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-set_global_assignment -name VERILOG_FILE sync_rom_16x4.v
-set_global_assignment -name VERILOG_FILE registrador_4.v
-set_global_assignment -name VERILOG_FILE hexa7seg.v
-set_global_assignment -name VERILOG_FILE exp4_unidade_controle.v
-set_global_assignment -name VERILOG_FILE exp4_fluxo_dados_tb.v
-set_global_assignment -name VERILOG_FILE exp4_fluxo_dados.v
-set_global_assignment -name VERILOG_FILE contador_163.v
-set_global_assignment -name VERILOG_FILE comparador_85.v
-set_global_assignment -name VERILOG_FILE circuito_exp4_tb.v
-set_global_assignment -name VERILOG_FILE circuito_exp4.v

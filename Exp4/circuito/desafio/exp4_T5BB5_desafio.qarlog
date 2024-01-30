@@ -1,0 +1,24 @@
+Quartus Prime Archive log --	D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_T5BB5_desafio.qarlog
+
+Archive:	D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_T5BB5_desafio.qar
+Date:		Tue Jan 30 02:35:40 2024
+Quartus Prime		20.1.1 Build 720 11/11/2020 SJ Lite Edition
+
+	=========== Files Selected: ===========
+D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio.qpf
+D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio.qsf
+D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio.v
+D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v
+D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/comparador_85.v
+D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/contador_163.v
+D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_fluxo_dados.v
+D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_fluxo_dados_tb.v
+D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_unidade_controle.v
+D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/hexa7seg.v
+D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/registrador_4.v
+D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/sync_rom_16x4.v
+d:/intelfpga_lite/20.1/quartus/bin64/assignment_defaults.qdf
+	======= Total: 13 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.

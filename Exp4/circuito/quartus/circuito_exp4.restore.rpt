@@ -1,0 +1,88 @@
+Restore Archived Project report for circuito_exp4
+Tue Jan 30 00:19:38 2024
+Quartus Prime Version 20.1.1 Build 720 11/11/2020 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Restore Archived Project Summary
+  3. Restore Archived Project Messages
+  4. Files Restored
+  5. Files Not Restored
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2020  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++-------------------------------------------------------------------------+
+; Restore Archived Project Summary                                        ;
++---------------------------------+---------------------------------------+
+; Restore Archived Project Status ; Successful - Tue Jan 30 00:19:38 2024 ;
+; Revision Name                   ; circuito_exp4                         ;
+; Top-level Entity Name           ; circuito_exp4                         ;
+; Family                          ; Cyclone V                             ;
++---------------------------------+---------------------------------------+
+
+
++-----------------------------------+
+; Restore Archived Project Messages ;
++-----------------------------------+
+Info: Successfully restored 'D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/quartus/exp4_T5BB5_ativ1.qar' into the 'D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/quartus/exp4_T5BB5_ativ1_restored/' directory
+Info: Generated report 'circuito_exp4.restore.rpt'
+Info (23030): Evaluation of Tcl script d:/intelfpga_lite/20.1/quartus/common/tcl/apps/qpm/qar.tcl was successful
+Info: Quartus Prime Shell was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 4817 megabytes
+    Info: Processing ended: Tue Jan 30 00:19:38 2024
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+
++-------------------------+
+; Files Restored          ;
++-------------------------+
+; File Name               ;
++-------------------------+
+; qar_info.json           ;
+; circuito_exp4.qpf       ;
+; circuito_exp4.qsf       ;
+; circuito_exp4.v         ;
+; circuito_exp4_tb.v      ;
+; comparador_85.v         ;
+; contador_163.v          ;
+; exp4_fluxo_dados.v      ;
+; exp4_fluxo_dados_tb.v   ;
+; exp4_unidade_controle.v ;
+; hexa7seg.v              ;
+; registrador_4.v         ;
+; sync_rom_16x4.v         ;
+; assignment_defaults.qdf ;
++-------------------------+
+
+
++--------------------+
+; Files Not Restored ;
++--------------------+
+; File Name          ;
++--------------------+
+
+

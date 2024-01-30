@@ -1,9 +1,13 @@
-module circuito_exp4 (
+module circuito_exp4_desafio (
     input        clock,
     input        reset,
     input        iniciar,
     input  [3:0] chaves,
     output       pronto,
+
+    output       acertou,
+    output       errou,
+
     output       db_igual,
     output       db_iniciar,
     output       db_zeraC,
@@ -27,6 +31,7 @@ wire wireContaC;
 wire wireZeraC;
 wire wireZeraR;
 wire wireRegistraR;
+wire wireIgual;
 
 assign db_iniciar = wireIniciar;
 assign wireIniciar = iniciar;
@@ -35,6 +40,7 @@ assign db_contaC = wireContaC;
 assign db_fimC = wireFimC;
 assign db_zeraR = wireZeraR;
 assign db_registraR = wireRegistraR;
+assign db_igual = wireIgual;
 
 exp4_fluxo_dados fluxo (
     .clock ( clock ),
@@ -43,7 +49,7 @@ exp4_fluxo_dados fluxo (
     .registraR ( wireRegistraR ),
     .contaC ( wireContaC ),
     .zeraC ( wireZeraC ),
-    .chavesIgualMemoria ( db_igual ),
+    .chavesIgualMemoria ( wireIgual ),
     .fimC ( wireFimC ),
     .db_contagem ( s_contagem ),
     .db_chaves ( s_chaves ),
@@ -55,12 +61,15 @@ exp4_unidade_controle uc (
     .reset ( reset ),
     .iniciar ( wireIniciar ),
     .fimC ( wireFimC ),
+    .igual ( wireIgual ),
     .zeraC ( wireZeraC ),
     .contaC ( wireContaC ),
     .zeraR ( wireZeraR ),
     .registraR ( wireRegistraR ),
     .pronto ( pronto ),
-    .db_estado ( s_estado )
+    .db_estado ( s_estado ),
+    .acertou ( acertou ),
+    .errou ( errou )
 );
 
 hexa7seg HEX2 (
