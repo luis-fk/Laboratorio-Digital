@@ -7,7 +7,8 @@ contador_163.v
 fluxo_dados.v
 registrador_4.v
 sync_rom_16x4.v
-exp4_unidade_controle.v
+unidade_controle.v
 hexa7seg.v
-circuito_exp4_desafio.v
-circuito_exp4_desafio_tb.v
+circuito_exp5.v
+# circuito_exp5_desafio_tb.v
+edge_detector.v
