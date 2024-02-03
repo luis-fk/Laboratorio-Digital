@@ -1,0 +1,241 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/intelFPGA_lite/20.1
+vcircuito_exp4_desafio
+Z0 !s110 1706712714
+!i10b 1
+!s100 2i5UALi>C]C<WkBV<[cVC2
+Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IFkAjleUmj9XF2ILjXP@OG3
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+Z3 dD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio
+w1706592344
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio.v
+!i122 0
+L0 1 96
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z5 !s108 1706712714.000000
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio.v|
+!i113 1
+Z6 o-work work
+Z7 tCvgOpt 0
+vcircuito_exp4_desafio_tb
+R0
+!i10b 1
+!s100 PBQ8hOKDli`AOTKf9SIU20
+R1
+I2RzQfDd_ifJiTBCcO8^PI1
+R2
+R3
+w1706589997
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v
+!i122 1
+L0 18 238
+R4
+r1
+!s85 0
+31
+R5
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v|
+!i113 1
+R6
+R7
+vcomparador_85
+Z8 !s110 1706712715
+!i10b 1
+!s100 bckB8^W=VE]I2a21^PB@D0
+R1
+IndYb0gT6]CGolH`C1HSY;3
+R2
+R3
+w1705009664
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/comparador_85.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/comparador_85.v
+!i122 2
+L0 16 14
+R4
+r1
+!s85 0
+31
+Z9 !s108 1706712715.000000
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/comparador_85.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/comparador_85.v|
+!i113 1
+R6
+R7
+vcontador_163
+R8
+!i10b 1
+!s100 6=fooWYYcI>Cc<hNlg?mi3
+R1
+IkXVbB`:E=WjloQcM9Z57P3
+R2
+R3
+w1706016976
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/contador_163.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/contador_163.v
+!i122 3
+L0 16 20
+R4
+r1
+!s85 0
+31
+R9
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/contador_163.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/contador_163.v|
+!i113 1
+R6
+R7
+vexp4_fluxo_dados
+R8
+!i10b 1
+!s100 ZdzZ;_6<N?=WjNc:5_3F>3
+R1
+IjTzRTS^1`Lz?QUNCh>Be;2
+R2
+R3
+w1706469460
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_fluxo_dados.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_fluxo_dados.v
+!i122 4
+L0 17 63
+R4
+r1
+!s85 0
+31
+R9
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_fluxo_dados.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_fluxo_dados.v|
+!i113 1
+R6
+R7
+vexp4_fluxo_dados_tb
+R8
+!i10b 1
+!s100 kHG@0j=SzJ@ez?_PZV4M22
+R1
+IZhBF8lHJ8_YZFHhHD^]g?2
+R2
+R3
+w1706474592
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_fluxo_dados_tb.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_fluxo_dados_tb.v
+!i122 5
+L0 19 153
+R4
+r1
+!s85 0
+31
+R9
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_fluxo_dados_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_fluxo_dados_tb.v|
+!i113 1
+R6
+R7
+vexp4_unidade_controle
+Z10 !s110 1706712716
+!i10b 1
+!s100 DC1Re[]bkd71=7<k58W6E2
+R1
+I2b51bil4fnEzHPi3h_Pdj1
+R2
+R3
+w1706710923
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_unidade_controle.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_unidade_controle.v
+!i122 6
+L0 15 76
+R4
+r1
+!s85 0
+31
+Z11 !s108 1706712716.000000
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_unidade_controle.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/exp4_unidade_controle.v|
+!i113 1
+R6
+R7
+vhexa7seg
+R10
+!i10b 1
+!s100 ^ldcN:Zl`^?4Tnh8I@Z332
+R1
+IFln899WP<VeS0mmJ5]eX40
+R2
+R3
+w1706584810
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/hexa7seg.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/hexa7seg.v
+!i122 7
+L0 23 38
+R4
+r1
+!s85 0
+31
+R11
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/hexa7seg.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/hexa7seg.v|
+!i113 1
+R6
+R7
+vregistrador_4
+R10
+!i10b 1
+!s100 45NaE0zN5R1c;nb0e8L`23
+R1
+Ij0M573OgY<LY;zNBa=X1[1
+R2
+R3
+w1706469766
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/registrador_4.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/registrador_4.v
+!i122 8
+L0 13 20
+R4
+r1
+!s85 0
+31
+R11
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/registrador_4.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/registrador_4.v|
+!i113 1
+R6
+R7
+vsync_rom_16x4
+R10
+!i10b 1
+!s100 Tz6@dY^L3ZzVgc74FVX5T1
+R1
+I<bVhklNd1[Ua]U`h4J5a01
+R2
+R3
+w1706584800
+8D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/sync_rom_16x4.v
+FD:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/sync_rom_16x4.v
+!i122 9
+L0 13 27
+R4
+r1
+!s85 0
+31
+R11
+!s107 D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/sync_rom_16x4.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/sync_rom_16x4.v|
+!i113 1
+R6
+R7

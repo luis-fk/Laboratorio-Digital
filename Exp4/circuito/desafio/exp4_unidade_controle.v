@@ -37,6 +37,7 @@ module exp4_unidade_controle (
     parameter comparacao = 4'b0101;  // 5
     parameter proximo    = 4'b0110;  // 6
     parameter fim        = 4'b1100;  // C
+	 parameter errouState = 4'b1101;  // D
 
     // Variaveis de estado
     reg [3:0] Eatual, Eprox;
@@ -55,9 +56,10 @@ module exp4_unidade_controle (
             inicial:     Eprox = iniciar ? preparacao : inicial;
             preparacao:  Eprox = registra;
             registra:    Eprox = comparacao;
-            comparacao:  Eprox = (fimC || igual == 1'b0) ? fim : proximo; 
+            comparacao:  Eprox = fimC ? fim : ~igual ? errouState : proximo; //
             proximo:     Eprox = registra;
             fim:         Eprox = inicial;
+				errouState:  Eprox = inicial;
             default:     Eprox = inicial;
         endcase
     end
@@ -68,9 +70,9 @@ module exp4_unidade_controle (
         zeraR     = (Eatual == inicial || Eatual == preparacao) ? 1'b1 : 1'b0;
         registraR = (Eatual == registra) ? 1'b1 : 1'b0;
         contaC    = (Eatual == proximo) ? 1'b1 : 1'b0;
-        pronto    = (Eatual == fim) ? 1'b1 : 1'b0; 
-        acertou   = (Eatual == fim && igual == 1'b1) ? 1'b1 : 1'b0; 
-        errou     = (Eatual == fim && igual == 1'b0) ? 1'b1 : 1'b0;               
+        pronto    = (Eatual == fim || Eatual == errouState) ? 1'b1 : 1'b0; 
+        acertou   = (Eatual == fim) ? 1'b1 : 1'b0; 
+        errou     = (Eatual == errouState) ? 1'b1 : 1'b0;               
                                                       
 
         // Saida de depuracao (estado)

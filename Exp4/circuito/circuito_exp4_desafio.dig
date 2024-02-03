@@ -7,12 +7,12 @@
       <elementName>External</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>circuito_exp4_desafio</string>
-        </entry>
-        <entry>
           <string>applicationType</string>
           <appType>IVERILOG</appType>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>circuito_exp4_desafio</string>
         </entry>
         <entry>
           <string>externalInputs</string>
@@ -247,6 +247,7 @@ module exp4_unidade_controle (
     parameter comparacao = 4&apos;b0101;  // 5
     parameter proximo    = 4&apos;b0110;  // 6
     parameter fim        = 4&apos;b1100;  // C
+	 parameter errouState = 4&apos;b1101;  // D
 
     // Variaveis de estado
     reg [3:0] Eatual, Eprox;
@@ -265,9 +266,10 @@ module exp4_unidade_controle (
             inicial:     Eprox = iniciar ? preparacao : inicial;
             preparacao:  Eprox = registra;
             registra:    Eprox = comparacao;
-            comparacao:  Eprox = (fimC || igual == 1&apos;b0) ? fim : proximo; 
+            comparacao:  Eprox = fimC ? fim : ~igual ? errouState : proximo; //
             proximo:     Eprox = registra;
             fim:         Eprox = inicial;
+				errouState:  Eprox = inicial;
             default:     Eprox = inicial;
         endcase
     end
@@ -278,9 +280,9 @@ module exp4_unidade_controle (
         zeraR     = (Eatual == inicial || Eatual == preparacao) ? 1&apos;b1 : 1&apos;b0;
         registraR = (Eatual == registra) ? 1&apos;b1 : 1&apos;b0;
         contaC    = (Eatual == proximo) ? 1&apos;b1 : 1&apos;b0;
-        pronto    = (Eatual == fim) ? 1&apos;b1 : 1&apos;b0; 
-        acertou   = (Eatual == fim &amp;&amp; igual == 1&apos;b1) ? 1&apos;b1 : 1&apos;b0; 
-        errou     = (igual == 1&apos;b0 &amp;&amp; Eatual == fim) ? 1&apos;b1 : 1&apos;b0;               
+        pronto    = (Eatual == fim || Eatual == errouState) ? 1&apos;b1 : 1&apos;b0; 
+        acertou   = (Eatual == fim) ? 1&apos;b1 : 1&apos;b0; 
+        errou     = (Eatual == errouState) ? 1&apos;b1 : 1&apos;b0;               
                                                       
 
         // Saida de depuracao (estado)

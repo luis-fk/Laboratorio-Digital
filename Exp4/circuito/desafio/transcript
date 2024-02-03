@@ -1,0 +1,31 @@
+vsim -gui work.circuito_exp4_desafio_tb
+# vsim -gui work.circuito_exp4_desafio_tb 
+# Start time: 13:21:34 on Jan 31,2024
+# Loading work.circuito_exp4_desafio_tb
+# Loading work.circuito_exp4_desafio
+# Loading work.exp4_fluxo_dados
+# Loading work.contador_163
+# Loading work.sync_rom_16x4
+# Loading work.registrador_4
+# Loading work.comparador_85
+# Loading work.exp4_unidade_controle
+# Loading work.hexa7seg
+# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'dut'.  Expected 18, found 13.
+#    Time: 0 ns  Iteration: 0  Instance: /circuito_exp4_desafio_tb/dut File: D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v Line: 46
+# ** Warning: (vsim-3722) D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v(46): [TFMPC] - Missing connection for port 'db_zeraC'.
+# ** Warning: (vsim-3722) D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v(46): [TFMPC] - Missing connection for port 'db_contaC'.
+# ** Warning: (vsim-3722) D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v(46): [TFMPC] - Missing connection for port 'db_fimC'.
+# ** Warning: (vsim-3722) D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v(46): [TFMPC] - Missing connection for port 'db_zeraR'.
+# ** Warning: (vsim-3722) D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v(46): [TFMPC] - Missing connection for port 'db_registraR'.
+add wave -position insertpoint  \
+sim:/circuito_exp4_desafio_tb/clock_in \
+sim:/circuito_exp4_desafio_tb/db_igual_out \
+sim:/circuito_exp4_desafio_tb/caso
+run -all
+# Inicio da simulacao
+# Fim da simulacao
+# ** Note: $stop    : D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v(253)
+#    Time: 1450 ns  Iteration: 0  Instance: /circuito_exp4_desafio_tb
+# Break in Module circuito_exp4_desafio_tb at D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v line 253
+# End time: 13:22:42 on Jan 31,2024, Elapsed time: 0:01:08
+# Errors: 0, Warnings: 7
