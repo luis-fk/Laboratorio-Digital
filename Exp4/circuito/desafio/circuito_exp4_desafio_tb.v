@@ -12,7 +12,10 @@
  *     16/01/2024  1.0     Edson Midorikawa  versao inicial
  * --------------------------------------------------------------------
 */
+     
 
+
+     
 `timescale 1ns/1ns
 
 module circuito_exp4_desafio_tb;
