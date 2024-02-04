@@ -154,12 +154,6 @@ module circuito_exp5_tb;
       #(5*clockPeriod);
       iniciar_in = 0;
 
-
-
-
-
-
-
       // Teste 9. jogada #1 (ajustar chaves para 0001 por 10 periodos de clock)
       caso = 9;
       @(negedge clock_in);
@@ -196,12 +190,6 @@ module circuito_exp5_tb;
       // espera entre jogadas
       #(10*clockPeriod);
 
-
-
-
-
-
-
       // Teste 13. jogada #5 (ajustar chaves para 0100 por 10 periodos de clock
       caso = 13;
       @(negedge clock_in);
@@ -210,7 +198,6 @@ module circuito_exp5_tb;
       chaves_in = 4'b0000;
       // espera entre jogadas
       #(10*clockPeriod);
-
 
       // Teste 14. jogada #6 (ajustar chaves para 0010 por 10 periodos de clock
       caso = 14;
@@ -221,7 +208,6 @@ module circuito_exp5_tb;
       // espera entre jogadas
       #(10*clockPeriod);
 
-
       // Teste 15. jogada #7 (ajustar chaves para 0001 por 10 periodos de clock
       caso = 15;
       @(negedge clock_in);
@@ -230,8 +216,6 @@ module circuito_exp5_tb;
       chaves_in = 4'b0000;
       // espera entre jogadas
       #(10*clockPeriod);
-
-
 
       // Teste 16. jogada #8 (ajustar chaves para 0001 por 10 periodos de clock
       caso = 16;
@@ -242,8 +226,6 @@ module circuito_exp5_tb;
       // espera entre jogadas
       #(10*clockPeriod);
 
-
-
       // Teste 17. jogada #9 (ajustar chaves para 0010 por 10 periodos de clock
       caso = 17;
       @(negedge clock_in);
@@ -252,8 +234,6 @@ module circuito_exp5_tb;
       chaves_in = 4'b0000;
       // espera entre jogadas
       #(10*clockPeriod);
-
-
 
       // Teste 18. jogada #10 (ajustar chaves para 0010 por 10 periodos de clock
       caso = 18;
@@ -264,9 +244,6 @@ module circuito_exp5_tb;
       // espera entre jogadas
       #(10*clockPeriod);
 
-
-
-
       // Teste 19. jogada #11 (ajustar chaves para 0100 por 10 periodos de clock
       caso = 19;
       @(negedge clock_in);
@@ -275,9 +252,6 @@ module circuito_exp5_tb;
       chaves_in = 4'b0000;
       // espera entre jogadas
       #(10*clockPeriod);
-
-
-
 
       // Teste 20. jogada #12 (ajustar chaves para 0100 por 10 periodos de clock
       caso = 20;
@@ -288,10 +262,6 @@ module circuito_exp5_tb;
       // espera entre jogadas
       #(10*clockPeriod);
 
-
-
-
-
       // Teste 21. jogada #13 (ajustar chaves para 1000 por 10 periodos de clock
       caso = 21;
       @(negedge clock_in);
@@ -300,9 +270,6 @@ module circuito_exp5_tb;
       chaves_in = 4'b0000;
       // espera entre jogadas
       #(10*clockPeriod);
-
-
-
 
       // Teste 22. jogada #14 (ajustar chaves para 1000 por 10 periodos de clock
       caso = 22;
@@ -313,10 +280,6 @@ module circuito_exp5_tb;
       // espera entre jogadas
       #(10*clockPeriod);
 
-
-
-
-
       // Teste 23. jogada #15 (ajustar chaves para 0001 por 10 periodos de clock
       caso = 23;
       @(negedge clock_in);
@@ -326,7 +289,6 @@ module circuito_exp5_tb;
       // espera entre jogadas
       #(10*clockPeriod);
 
-
       // Teste 23. jogada #15 (ajustar chaves para 0100 por 10 periodos de clock
       caso = 23;
       @(negedge clock_in);
@@ -335,7 +297,6 @@ module circuito_exp5_tb;
       chaves_in = 4'b0000;
       // espera entre jogadas
       #(10*clockPeriod);
-
 
       // espera
       #(10*clockPeriod);

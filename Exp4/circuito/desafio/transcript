@@ -1,31 +1,165 @@
-vsim -gui work.circuito_exp4_desafio_tb
-# vsim -gui work.circuito_exp4_desafio_tb 
-# Start time: 13:21:34 on Jan 31,2024
-# Loading work.circuito_exp4_desafio_tb
-# Loading work.circuito_exp4_desafio
-# Loading work.exp4_fluxo_dados
-# Loading work.contador_163
+# Compile of circuito_exp5.v was successful.
+# Compile of circuito_exp5_tb.v was successful.
+# Compile of comparador_85.v was successful.
+# Compile of contador_163.v was successful.
+# Compile of contador_m.v was successful.
+# Compile of digital.v was successful.
+# Compile of edge_detector.v was successful.
+# Compile of fluxo_dados.v was successful.
+# Compile of hexa7seg.v was successful.
+# Compile of registrador_4.v was successful.
+# Compile of sync_rom_16x4.v was successful.
+# Compile of unidade_controle.v was successful.
+# 12 compiles, 0 failed with no errors.
+vsim -gui work.circuito_exp5_tb
+# vsim -gui work.circuito_exp5_tb 
+# Start time: 19:33:44 on Feb 03,2024
+# Loading work.circuito_exp5_tb
+# ** Error: (vsim-3033) Instantiation of 'circuito_exp4_desafio' failed. The design unit was not found.
+#    Time: 0 ps  Iteration: 0  Instance: /circuito_exp5_tb File: D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/quartus/circuito_exp5_tb.v Line: 46
+#         Searched libraries:
+#             D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/work
+# Error loading design
+# End time: 19:33:45 on Feb 03,2024, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 8
+# Compile of circuito_exp5.v was successful.
+# Compile of circuito_exp5_tb.v was successful.
+# Compile of comparador_85.v was successful.
+# Compile of contador_163.v was successful.
+# Compile of contador_m.v was successful.
+# Compile of digital.v was successful.
+# Compile of edge_detector.v was successful.
+# Compile of fluxo_dados.v was successful.
+# Compile of hexa7seg.v was successful.
+# Compile of registrador_4.v was successful.
+# Compile of sync_rom_16x4.v was successful.
+# Compile of unidade_controle.v was successful.
+# 12 compiles, 0 failed with no errors.
+vsim -gui work.circuito_exp5_tb
+# vsim -gui work.circuito_exp5_tb 
+# Start time: 19:38:03 on Feb 03,2024
+# Loading work.circuito_exp5_tb
+# Loading work.circuito_exp5
+# Loading work.fluxo_dados
+# Loading work.edge_detector
+# Loading work.contador_m
 # Loading work.sync_rom_16x4
 # Loading work.registrador_4
 # Loading work.comparador_85
-# Loading work.exp4_unidade_controle
+# Loading work.unidade_controle
 # Loading work.hexa7seg
-# ** Warning: (vsim-2685) [TFMPC] - Too few port connections for 'dut'.  Expected 18, found 13.
-#    Time: 0 ns  Iteration: 0  Instance: /circuito_exp4_desafio_tb/dut File: D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v Line: 46
-# ** Warning: (vsim-3722) D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v(46): [TFMPC] - Missing connection for port 'db_zeraC'.
-# ** Warning: (vsim-3722) D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v(46): [TFMPC] - Missing connection for port 'db_contaC'.
-# ** Warning: (vsim-3722) D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v(46): [TFMPC] - Missing connection for port 'db_fimC'.
-# ** Warning: (vsim-3722) D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v(46): [TFMPC] - Missing connection for port 'db_zeraR'.
-# ** Warning: (vsim-3722) D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v(46): [TFMPC] - Missing connection for port 'db_registraR'.
 add wave -position insertpoint  \
-sim:/circuito_exp4_desafio_tb/clock_in \
-sim:/circuito_exp4_desafio_tb/db_igual_out \
-sim:/circuito_exp4_desafio_tb/caso
+sim:/circuito_exp5_tb/clock_in \
+sim:/circuito_exp5_tb/reset_in \
+sim:/circuito_exp5_tb/iniciar_in \
+sim:/circuito_exp5_tb/chaves_in \
+sim:/circuito_exp5_tb/acertou_out \
+sim:/circuito_exp5_tb/errou_out \
+sim:/circuito_exp5_tb/pronto_out \
+sim:/circuito_exp5_tb/leds_out \
+sim:/circuito_exp5_tb/db_igual_out \
+sim:/circuito_exp5_tb/caso
+# Error Undo Start called while in Redo capture mode
+add wave -position insertpoint  \
+sim:/circuito_exp5_tb/dut/db_tem_jogada
+add wave -position insertpoint  \
+sim:/circuito_exp5_tb/dut/fluxo/db_jogada
+add wave -position insertpoint  \
+sim:/circuito_exp5_tb/dut/fluxo/db_contagem \
+sim:/circuito_exp5_tb/dut/fluxo/db_memoria
+add wave -position insertpoint  \
+sim:/circuito_exp5_tb/dut/uc/zeraC \
+sim:/circuito_exp5_tb/dut/uc/contaC \
+sim:/circuito_exp5_tb/dut/uc/zeraR \
+sim:/circuito_exp5_tb/dut/uc/registraR \
+sim:/circuito_exp5_tb/dut/uc/db_estado
 run -all
 # Inicio da simulacao
 # Fim da simulacao
-# ** Note: $stop    : D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v(253)
-#    Time: 1450 ns  Iteration: 0  Instance: /circuito_exp4_desafio_tb
-# Break in Module circuito_exp4_desafio_tb at D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp4/circuito/desafio/circuito_exp4_desafio_tb.v line 253
-# End time: 13:22:42 on Jan 31,2024, Elapsed time: 0:01:08
-# Errors: 0, Warnings: 7
+# ** Note: $stop    : D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/quartus/circuito_exp5_tb.v(345)
+#    Time: 9250 ns  Iteration: 0  Instance: /circuito_exp5_tb
+# Break in Module circuito_exp5_tb at D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/quartus/circuito_exp5_tb.v line 345
+# 
+add wave -position insertpoint  \
+sim:/circuito_exp5_tb/db_estado_out
+# Break key hit
+# image file format "bmp" is unknown
+# image file format "bmp" is unknown
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/wave.do
+do D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/wave.do
+quit -sim
+# End time: 20:34:24 on Feb 03,2024, Elapsed time: 0:56:21
+# Errors: 0, Warnings: 2
+# Compile of circuito_exp5.v was successful.
+# Compile of circuito_exp5_tb.v was successful.
+# Compile of comparador_85.v was successful.
+# Compile of contador_163.v was successful.
+# Compile of contador_m.v was successful.
+# Compile of digital.v was successful.
+# Compile of edge_detector.v was successful.
+# Compile of fluxo_dados.v was successful.
+# Compile of hexa7seg.v was successful.
+# Compile of registrador_4.v was successful.
+# Compile of sync_rom_16x4.v was successful.
+# Compile of unidade_controle.v was successful.
+# 12 compiles, 0 failed with no errors.
+vsim -gui work.circuito_exp5_tb
+# vsim -gui work.circuito_exp5_tb 
+# Start time: 20:34:45 on Feb 03,2024
+# Loading work.circuito_exp5_tb
+# Loading work.circuito_exp5
+# Loading work.fluxo_dados
+# Loading work.edge_detector
+# Loading work.contador_m
+# Loading work.sync_rom_16x4
+# Loading work.registrador_4
+# Loading work.comparador_85
+# Loading work.unidade_controle
+# Loading work.hexa7seg
+do D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/wave.do
+run -all
+# Inicio da simulacao
+# Fim da simulacao
+# ** Note: $stop    : D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/quartus/circuito_exp5_tb.v(345)
+#    Time: 9250 ns  Iteration: 0  Instance: /circuito_exp5_tb
+# Break in Module circuito_exp5_tb at D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/quartus/circuito_exp5_tb.v line 345
+quit -sim
+# End time: 20:36:07 on Feb 03,2024, Elapsed time: 0:01:22
+# Errors: 0, Warnings: 2
+# Compile of circuito_exp5.v was successful.
+# Compile of circuito_exp5_tb.v was successful.
+# Compile of comparador_85.v was successful.
+# Compile of contador_163.v was successful.
+# Compile of contador_m.v was successful.
+# Compile of digital.v was successful.
+# Compile of edge_detector.v was successful.
+# Compile of fluxo_dados.v was successful.
+# Compile of hexa7seg.v was successful.
+# Compile of registrador_4.v was successful.
+# Compile of sync_rom_16x4.v was successful.
+# Compile of unidade_controle.v was successful.
+# 12 compiles, 0 failed with no errors.
+vsim -gui work.circuito_exp5_tb
+# vsim -gui work.circuito_exp5_tb 
+# Start time: 20:37:08 on Feb 03,2024
+# Loading work.circuito_exp5_tb
+# Loading work.circuito_exp5
+# Loading work.fluxo_dados
+# Loading work.edge_detector
+# Loading work.contador_m
+# Loading work.sync_rom_16x4
+# Loading work.registrador_4
+# Loading work.comparador_85
+# Loading work.unidade_controle
+# Loading work.hexa7seg
+do D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/wave.do
+run -all
+# Inicio da simulacao
+# Fim da simulacao
+# ** Note: $stop    : D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/quartus/circuito_exp5_tb.v(345)
+#    Time: 9250 ns  Iteration: 0  Instance: /circuito_exp5_tb
+# Break in Module circuito_exp5_tb at D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/quartus/circuito_exp5_tb.v line 345
+# Project file D:/Studies/materiais/LabDigi/baguncinha-labdigi/Exp5/circuito_exp5/exp5.mpf is write protected, data cannot be saved.
+# Unable to save project.
+# End time: 21:35:26 on Feb 03,2024, Elapsed time: 0:58:18
+# Errors: 0, Warnings: 1

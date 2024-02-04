@@ -8,8 +8,9 @@ modulos/registrador_4.v
 modulos/sync_rom_16x4.v
 modulos/hexa7seg.v
 modulos/edge_detector.v
+# exp4_fluxo_dados_tb.v
 fluxo_dados.v
 unidade_controle.v
 circuito_exp5.v
-circuito_exp5_tb.v
+# circuito_exp5_desafio_tb.v
 

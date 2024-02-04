@@ -3,6 +3,15 @@
 // Projeto   : Experiencia 4 - Projeto de uma Unidade de Controle
 //------------------------------------------------------------------
 // Descricao : Unidade de controle
+//
+// usar este codigo como template (modelo) para codificar 
+// máquinas de estado de unidades de controle            
+//------------------------------------------------------------------
+// Revisoes  :
+//     Data        Versao  Autor             Descricao
+//     14/01/2024  1.0     Edson Midorikawa  versao inicial
+//------------------------------------------------------------------
+//
 module unidade_controle (
                     input      clock    ,
                     input      reset    ,
@@ -93,5 +102,3 @@ module unidade_controle (
     end
 
 endmodule
-
-

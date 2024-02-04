@@ -5,7 +5,13 @@
  * Descricao : testbench Verilog para circuito do fluxo de dados
  *             da Experiencia 4 
  *
- *             1) plano de teste: 17 casos de teste
+ *             1) plano de teste: 11 casos de teste
+ *
+ * --------------------------------------------------------------------
+ * Revisoes  :
+ *     Data        Versao  Autor             Descricao
+ *     16/01/2024  1.0     Edson Midorikawa  versao inicial
+ * --------------------------------------------------------------------
 */
 
 `timescale 1ns/1ns
@@ -25,6 +31,7 @@ module exp5_fluxo_dados_tb;
     wire [3:0] contagem_out;
     wire [3:0] memoria_out;
     wire [3:0] chaves_out;
+
     wire       notZeraC_out;
     wire       notZeraR_out;
 
@@ -39,17 +46,17 @@ module exp5_fluxo_dados_tb;
 
     // instanciacao do DUT (Device Under Test)
     exp4_fluxo_dados dut (
-      .clock              (        clock_in        ),
-      .zeraR              (        zeraR_in        ),
-      .registraR          (      registraR_in      ),
-      .contaC             (        contaC_in       ),
-      .zeraC              (       zeraC_in         ),
-      .chaves             (       chaves_in        ),
+      .clock              ( clock_in ),
+      .zeraR              ( zeraR_in ),
+      .registraR          ( registraR_in ),
+      .contaC             ( contaC_in ),
+      .zeraC              ( zeraC_in ),
+      .chaves             ( chaves_in ),
       .chavesIgualMemoria ( chavesIgualMemoria_out ),
-      .fimC               (         fimC_out       ),
-      .db_contagem        (      contagem_out      ),
-      .db_chaves          (       chaves_out       ),
-      .db_memoria         (      memoria_out       )
+      .fimC               ( fimC_out),
+      .db_contagem        ( contagem_out ),
+      .db_chaves          ( chaves_out ),
+      .db_memoria         ( memoria_out )
     );
 
     // geracao dos sinais de entrada (estimulos)
@@ -57,7 +64,7 @@ module exp5_fluxo_dados_tb;
       $display("Inicio da simulacao");
 
       // condicoes iniciais
-      caso       = 0  ;
+      caso       = 0;
       clock_in     = 1;
       zeraC_in     = 0;
       contaC_in    = 0;
@@ -152,6 +159,7 @@ module exp5_fluxo_dados_tb;
          contaC_in    = 0;
          #(clockPeriod);
       end
+
 
       // final dos casos de teste da simulacao
       caso = 99;

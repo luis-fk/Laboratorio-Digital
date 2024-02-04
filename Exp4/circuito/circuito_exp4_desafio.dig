@@ -12,7 +12,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>circuito_exp4_desafio</string>
+          <string>circuito_exp5</string>
         </entry>
         <entry>
           <string>externalInputs</string>
@@ -20,89 +20,95 @@
         </entry>
         <entry>
           <string>Width</string>
-          <int>15</int>
+          <int>10</int>
         </entry>
         <entry>
           <string>Code</string>
-          <string>module circuito_exp4_desafio (
+          <string>module circuito_exp5 (
     input        clock,
     input        reset,
     input        iniciar,
     input  [3:0] chaves,
-    output       pronto,
-
     output       acertou,
     output       errou,
-
+    output       pronto,
+    output [3:0] leds, // chaves
     output       db_igual,
-    output       db_iniciar,
-    output       db_zeraC,
-    output       db_contaC,
-    output       db_fimC,
-    output       db_zeraR,
-    output       db_registraR,
     output [3:0] db_contagem,
     output [3:0] db_memoria,
-    output [3:0] db_chaves,
-    output [3:0] db_estado
+    output [3:0] db_estado,
+    output [3:0] db_jogadafeita,
+    output       db_clock,
+    output       db_iniciar,
+    output       db_tem_jogada
+
+    // output       db_zeraC,
+    // output       db_contaC,
+    // output       db_fimC,
+    // output       db_zeraR,
+    // output       db_registraR,
+    // output [6:0] db_chaves
+
 );
 
-wire [3:0] s_chaves;
-wire [3:0] s_contagem;
-wire [3:0] s_memoria;
-wire [3:0] s_estado;
-wire wireFimC;
-wire wireIniciar;
-wire wireContaC;
-wire wireZeraC;
-wire wireZeraR;
-wire wireRegistraR;
-wire wireIgual;
+    wire [3:0] s_chaves;
+    wire [3:0] s_contagem;
+    wire [3:0] s_memoria;
+    wire [3:0] s_estado;
+    wire wireFimC; 
+    // wire wireIniciar;
+    wire wireContaC;
+    wire wireZeraC;
+    wire wireZeraR;
+    wire wireRegistraR;
+    wire wireIgual;
+    wire wureJogada;
+    wire [3:0] wire_db_jogada;
 
-assign db_iniciar = wireIniciar;
-assign wireIniciar = iniciar;
-assign db_zeraC = wireZeraC;
-assign db_contaC = wireContaC;
-assign db_fimC = wireFimC;
-assign db_zeraR = wireZeraR;
-assign db_registraR = wireRegistraR;
-assign db_igual = wireIgual;
-assign db_contagem = s_contagem;
+    assign db_iniciar = iniciar;
+    // assign wireIniciar = iniciar;
+    // assign db_zeraC = wireZeraC;
+    // assign db_contaC = wireContaC;
+    // assign db_fimC = wireFimC;
+    // assign db_zeraR = wireZeraR;
+    // assign db_registraR = wireRegistraR;
+    assign db_igual = wireIgual;
+    assign leds = chaves;
+    assign s_chaves = chaves;
+    assign db_clock = clock;
+    fluxo_dados fluxo (
+        .clock          ( clock ),
+        .zeraC          ( wireZeraC ),
+        .contaC         ( wireContaC ),
+        .zeraR          ( wireZeraR ),
+        .registraR      ( wireRegistraR ),
+        .chaves         ( chaves ),
+        .igual          ( wireIgual ),
+        .fimC           ( wireFimC ),
+        .jogada_feita   ( wireJogada ), 
+        .db_tem_jogada  ( db_tem_jogada ),
+        .db_contagem    ( s_contagem ),
+        .db_memoria     ( s_memoria ),
+        .db_jogada      ( wire_db_jogada )
+    );
 
-exp4_fluxo_dados fluxo (
-    .clock ( clock ),
-    .chaves ( chaves ),
-    .zeraR ( wireZeraR ),
-    .registraR ( wireRegistraR ),
-    .contaC ( wireContaC ),
-    .zeraC ( wireZeraC ),
-    .chavesIgualMemoria ( wireIgual ),
-    .fimC ( wireFimC ),
-    .db_contagem ( s_contagem ),
-    .db_chaves ( s_chaves ),
-    .db_memoria ( s_memoria )
-);
+    unidade_controle uc (
+        .clock     ( clock ),
+        .reset     ( reset ),
+        .iniciar   ( iniciar ),
+        .fim       ( wireFimC ), //abaixo são as saídas
+        .jogada    ( wireJogada), 
+        .igual     ( wireIgual ),
+        .zeraC     ( wireZeraC ),
+        .contaC    ( wireContaC ),
+        .zeraR     ( wireZeraR ),
+        .registraR ( wireRegistraR ),
+        .acertou   ( acertou ),
+        .errou     ( errou ),
+        .pronto    ( pronto ),
+        .db_estado ( s_estado )
+    );
 
-exp4_unidade_controle uc (
-    .clock ( clock ),
-    .reset ( reset ),
-    .iniciar ( wireIniciar ),
-    .fimC ( wireFimC ),
-    .igual ( wireIgual ),
-    .zeraC ( wireZeraC ),
-    .contaC ( wireContaC ),
-    .zeraR ( wireZeraR ),
-    .registraR ( wireRegistraR ),
-    .pronto ( pronto ),
-    .db_estado ( s_estado ),
-    .acertou ( acertou ),
-    .errou ( errou )
-);
-
-hexa7seg HEX2 (
-    .hexa ( s_chaves ),
-    .display ( db_chaves )
-);
 
 hexa7seg HEX0 (
     .hexa ( s_contagem ),
@@ -114,85 +120,130 @@ hexa7seg HEX1 (
     .display ( db_memoria )
 );
 
+hexa7seg HEX2 (
+    .hexa ( wire_db_jogada ),
+    .display ( db_jogadafeita )
+);
+
 hexa7seg HEX5 (
     .hexa ( s_estado ),
     .display ( db_estado )
 );
 
-
 endmodule
 
-module comparador_85 (ALBi, AGBi, AEBi, A, B, ALBo, AGBo, AEBo);
-
-    input[3:0] A, B;
-    input      ALBi, AGBi, AEBi;
-    output     ALBo, AGBo, AEBo;
-    wire[4:0]  CSL, CSG;
-
-    assign CSL  = ~A + B + ALBi;
-    assign ALBo = ~CSL[4];
-    assign CSG  = A + ~B + AGBi;
-    assign AGBo = ~CSG[4];
-    assign AEBo = ((A == B) &amp;&amp; AEBi);
-
-endmodule
-
-module contador_163 ( clock, clr, ld, ent, enp, D, Q, rco );
-    input clock, clr, ld, ent, enp;
-    input [3:0] D;
-    output reg [3:0] Q;
-    output reg rco;
-
-	 initial begin
-		Q = 4&apos;d0;
-    end
-	 
-    always @ (posedge clock)
-        if (~clr)               Q &lt;= 4&apos;d0;
-        else if (~ld)           Q &lt;= D;
-        else if (ent &amp;&amp; enp)    Q &lt;= Q + 1;
-        else                    Q &lt;= Q;
- 
-    always @ (Q or ent)
-        if (ent &amp;&amp; (Q == 4&apos;d15))   rco = 1;
-        else                       rco = 0;
-endmodule
-
-module exp4_fluxo_dados (
-                        input        clock,
-                        input  [3:0] chaves,
-                        input        zeraR,
-                        input        registraR,
-                        input        contaC,
-                        input        zeraC,
-
-                        output       chavesIgualMemoria,
-                        output       fimC,
-                        output [3:0] db_contagem,
-                        output [3:0] db_chaves, 
-                        output [3:0] db_memoria
+module edge_detector (
+    input  clock,
+    input  reset,
+    input  sinal,
+    output pulso
 );
-    
+
+    reg reg0;
+    reg reg1;
+
+    always @(posedge clock or posedge reset) begin
+        if (reset) begin
+            reg0 &lt;= 1&apos;b0;
+            reg1 &lt;= 1&apos;b0;
+        end else if (clock) begin
+            reg0 &lt;= sinal;
+            reg1 &lt;= reg0;
+        end
+    end
+
+    assign pulso = ~reg1 &amp; reg0;
+
+endmodule
+
+
+module contador_m #(parameter M=16, N=4)
+  (
+   input  wire          clock,
+   input  wire          zera_as,
+   input  wire          zera_s,
+   input  wire          conta,
+   output reg  [N-1:0]  Q,
+   output reg           fim,
+   output reg           meio
+  );
+
+  always @(posedge clock or posedge zera_as) begin
+    if (zera_as) begin
+      Q &lt;= 0;
+    end else if (clock) begin
+      if (zera_s) begin
+        Q &lt;= 0;
+      end else if (conta) begin
+        if (Q == M-1) begin
+          Q &lt;= 0;
+        end else begin
+          Q &lt;= Q + 1;
+        end
+      end
+    end
+  end
+
+  // Saidas
+  always @ (Q)
+      if (Q == M-1)   fim = 1;
+      else            fim = 0;
+
+  always @ (Q)
+      if (Q == M/2-1) meio = 1;
+      else            meio = 0;
+
+endmodule
+
+module fluxo_dados (
+    input clock,
+    input zeraC,
+    input contaC,
+    input zeraR,
+    input registraR,
+    input [3:0] chaves,
+    output igual,
+    output fimC,
+    output jogada_feita,
+    output db_tem_jogada,
+    output [3:0] db_contagem,
+    output [3:0] db_memoria,
+    output [3:0] db_jogada
+);
+    // sinais internos para interligacao dos componentes
     wire ALBo, AGBo;
-    wire [3:0] s_endereco;  // sinal interno para interligacao dos componentes
+    wire [3:0] s_endereco;  
     wire [3:0] s_chaves;
     wire [3:0] s_dado;
-
+    wire tem_jogada;
+    wire WireIgual;
+    
     assign db_contagem = s_endereco;
-    assign db_chaves = s_chaves;
+    assign db_jogada = s_chaves;
     assign db_memoria = s_dado;
+    assign db_tem_jogada = tem_jogada;
+    assign igual = WireIgual;
 
-    // contador_163
-    contador_163 contador (
-      .clock( clock ),
-      .clr  ( ~zeraC ),
-      .ld   ( 1&apos;b1 ),
-      .ent  ( 1&apos;b1 ),
-      .enp  ( contaC ),
-      .D    ( 4&apos;b0000 ),
-      .Q    ( s_endereco ),
-      .rco  ( fimC )
+    or (tem_jogada, chaves[3], chaves[2], chaves[1], chaves[0]);
+
+    // detector de jogada
+    edge_detector edge_detector(
+      .clock ( clock ),
+      .reset ( 1&apos;b0 ),
+      .sinal ( tem_jogada ),
+      .pulso ( jogada_feita )
     );
+
+    // contador_m
+    contador_m contador_m (
+      .clock   ( clock ),
+      .zera_as ( zeraC ),
+      .zera_s  ( 1&apos;b0 ),
+      .conta   ( contaC ),
+      .Q       ( s_endereco ),
+      .fim     ( fimC ),
+      .meio    (   )
+      );
 
      sync_rom_16x4 mem (
       .clock   ( clock ),
@@ -217,42 +268,42 @@ module exp4_fluxo_dados (
       .AEBi( 1&apos;b1 ),
       .ALBo( ALBo ),
       .AGBo( AGBo ),
-      .AEBo( chavesIgualMemoria )
+      .AEBo( WireIgual )
     );
 
  endmodule
 
-module exp4_unidade_controle (
-    input      clock,
-    input      reset,
-    input      iniciar,
-    input      fimC,
-
-    input      igual,
-
-    output reg zeraC,
-    output reg contaC,
-    output reg zeraR,
-    output reg registraR,
-    output reg pronto,
-    output reg [3:0] db_estado,
-    output reg acertou,
-    output reg errou
+module unidade_controle (
+                    input clock,
+                    input reset,
+                    input iniciar,
+                    input fim,
+                    input jogada,
+                    input igual,
+                    output reg zeraC,
+                    output reg contaC,
+                    output reg zeraR,
+                    output reg registraR,
+                    output reg acertou,
+                    output reg errou,
+                    output reg pronto,
+                    output reg [3:0] db_estado
 );
+    
+    /* declaração dos estados dessa UC */
+    parameter inicial              = 4&apos;b0000; // 0
+    parameter inicializa_elementos = 4&apos;b0001; // 1
+    parameter espera_jogada        = 4&apos;b0010; // 2
+    parameter registra_jogada      = 4&apos;b0011; // 3
+    parameter compara_jogada       = 4&apos;b0100; // 4
+    parameter passa_prox_jogada    = 4&apos;b0101; // 5
+    parameter final_com_acertos    = 4&apos;b0110; // 6
+    parameter final_com_erro       = 4&apos;b0111; // 7
 
-    // Define estados
-    parameter inicial    = 4&apos;b0000;  // 0
-    parameter preparacao = 4&apos;b0001;  // 1
-    parameter registra   = 4&apos;b0100;  // 4
-    parameter comparacao = 4&apos;b0101;  // 5
-    parameter proximo    = 4&apos;b0110;  // 6
-    parameter fim        = 4&apos;b1100;  // C
-	 parameter errouState = 4&apos;b1101;  // D
-
-    // Variaveis de estado
+    // Variáveis de estado
     reg [3:0] Eatual, Eprox;
 
-    // Memoria de estado
+    // Memória de estado
     always @(posedge clock or posedge reset) begin
         if (reset)
             Eatual &lt;= inicial;
@@ -260,42 +311,66 @@ module exp4_unidade_controle (
             Eatual &lt;= Eprox;
     end
 
-    // Logica de proximo estado
+    /*  */
+    /* O funcionamento dessa unidade de controle começa no estado 0 quando o circuito 
+       é acionado, tendo inicio somente quando o sinal iniciar for ativado, passado 
+       pelo estado 1 que inicializa os elementos e vai logo para o estado 2 onde o circuito
+       espera por uma jogada,  */
     always @* begin
         case (Eatual)
-            inicial:     Eprox = iniciar ? preparacao : inicial;
-            preparacao:  Eprox = registra;
-            registra:    Eprox = comparacao;
-            comparacao:  Eprox = fimC ? fim : ~igual ? errouState : proximo; //
-            proximo:     Eprox = registra;
-            fim:         Eprox = inicial;
-				errouState:  Eprox = inicial;
-            default:     Eprox = inicial;
+            inicial:              Eprox = iniciar ? inicializa_elementos : inicial;
+            inicializa_elementos: Eprox = espera_jogada;
+            espera_jogada:        Eprox = jogada ? registra_jogada : espera_jogada;
+            registra_jogada:      Eprox = compara_jogada;
+            compara_jogada:       Eprox = ~igual ? final_com_erro : (fim ? final_com_acertos : passa_prox_jogada);
+            passa_prox_jogada:    Eprox = espera_jogada;
+            final_com_acertos:    Eprox = iniciar ? inicializa_elementos : final_com_acertos;
+            final_com_erro:       Eprox = iniciar ? inicializa_elementos : final_com_erro;
+            default:              Eprox = inicial;            
         endcase
     end
 
-    // Logica de saida (maquina Moore)
+    // Lógica de saída (maquina Moore)
     always @* begin
-        zeraC     = (Eatual == inicial || Eatual == preparacao) ? 1&apos;b1 : 1&apos;b0;
-        zeraR     = (Eatual == inicial || Eatual == preparacao) ? 1&apos;b1 : 1&apos;b0;
-        registraR = (Eatual == registra) ? 1&apos;b1 : 1&apos;b0;
-        contaC    = (Eatual == proximo) ? 1&apos;b1 : 1&apos;b0;
-        pronto    = (Eatual == fim || Eatual == errouState) ? 1&apos;b1 : 1&apos;b0; 
-        acertou   = (Eatual == fim) ? 1&apos;b1 : 1&apos;b0; 
-        errou     = (Eatual == errouState) ? 1&apos;b1 : 1&apos;b0;               
-                                                      
+        zeraC     = (Eatual == inicial || Eatual == inicializa_elementos) ? 1&apos;b1 : 1&apos;b0;
+        zeraR     = (Eatual == inicial || Eatual == inicializa_elementos) ? 1&apos;b1 : 1&apos;b0;
+        registraR = (Eatual == registra_jogada) ? 1&apos;b1 : 1&apos;b0;
+        contaC    = (Eatual == passa_prox_jogada) ? 1&apos;b1 : 1&apos;b0;
+        pronto    = (Eatual == final_com_acertos || Eatual == final_com_erro) ? 1&apos;b1 : 1&apos;b0; 
+        acertou   = (Eatual == final_com_acertos) ? 1&apos;b1 : 1&apos;b0; 
+        errou     = (Eatual == final_com_erro) ? 1&apos;b1 : 1&apos;b0;                                              
 
-        // Saida de depuracao (estado)
+        // Saída de depuração (estado)
         case (Eatual)
-            inicial:     db_estado = 4&apos;b0000;  // 0
-            preparacao:  db_estado = 4&apos;b0001;  // 1
-            registra:    db_estado = 4&apos;b0100;  // 4
-            comparacao:  db_estado = 4&apos;b0101;  // 5
-            proximo:     db_estado = 4&apos;b0110;  // 6
-            fim:         db_estado = 4&apos;b1100;  // C
-            default:     db_estado = 4&apos;b1111;  // F
+            inicial:              db_estado = 4&apos;b0000; // 0
+            inicializa_elementos: db_estado = 4&apos;b0001; // 1
+            espera_jogada:        db_estado = 4&apos;b0010; // 2
+            registra_jogada:      db_estado = 4&apos;b0011; // 3
+            compara_jogada:       db_estado = 4&apos;b0100; // 4
+            passa_prox_jogada:    db_estado = 4&apos;b0101; // 5
+            final_com_acertos:    db_estado = 4&apos;b0110; // 6
+            final_com_erro:       db_estado = 4&apos;b0111; // 7
+            default:              db_estado = 4&apos;b1000; // 8
         endcase
     end
+
+endmodule
+
+
+
+
+module comparador_85 (ALBi, AGBi, AEBi, A, B, ALBo, AGBo, AEBo);
+
+    input[3:0] A, B;
+    input      ALBi, AGBi, AEBi;
+    output     ALBo, AGBo, AEBo;
+    wire[4:0]  CSL, CSG;
+
+    assign CSL  = ~A + B + ALBi;
+    assign ALBo = ~CSL[4];
+    assign CSG  = A + ~B + AGBi;
+    assign AGBo = ~CSG[4];
+    assign AEBo = ((A == B) &amp;&amp; AEBi);
 
 endmodule
 
@@ -389,355 +464,726 @@ endmodule</string>
         </entry>
         <entry>
           <string>externalOutputs</string>
-          <string>pronto,acertou,errou,db_igual,db_iniciar,db_zeraC,db_contaC,db_fimC,db_zeraR,db_registraR,db_contagem:4,db_memoria:4,db_chaves:4,db_estado:4</string>
+          <string>acertou,errou,pronto,leds:4,db_igual,db_contagem:4,db_memoria:4,db_estado:4,db_jogadafeita:4,db_clock,db_iniciar,db_tem_jogada</string>
         </entry>
       </elementAttributes>
       <pos x="740" y="360"/>
     </visualElement>
     <visualElement>
-      <elementName>In</elementName>
+      <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="520" y="360"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes/>
-      <pos x="520" y="400"/>
+      <pos x="1080" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="1240" y="240"/>
+      <pos x="1080" y="280"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="1240" y="280"/>
+      <pos x="1080" y="320"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes/>
-      <pos x="1240" y="320"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes/>
-      <pos x="1240" y="360"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes/>
-      <pos x="1240" y="400"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes/>
-      <pos x="1240" y="440"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
+      <elementName>Text</elementName>
       <elementAttributes>
         <entry>
-          <string>Bits</string>
-          <int>4</int>
+          <string>Description</string>
+          <string>pronto</string>
         </entry>
       </elementAttributes>
-      <pos x="520" y="440"/>
+      <pos x="1120" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>acertou</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>errou</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>leds</string>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>clock</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>reset</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>iniciar</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>chaves</string>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Clock</elementName>
+      <elementAttributes>
+        <entry>
+          <string>runRealTime</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="1240" y="480"/>
+      <pos x="1080" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>db-igual</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="1320" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Seven-Seg-Hex</elementName>
+      <elementAttributes/>
+      <pos x="1260" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>db-contagem</string>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="1260" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="1420" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Seven-Seg-Hex</elementName>
+      <elementAttributes/>
+      <pos x="1360" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>db-memoria</string>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="1520" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Seven-Seg-Hex</elementName>
+      <elementAttributes/>
+      <pos x="1460" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>db-estado</string>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="1460" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="1620" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Seven-Seg-Hex</elementName>
+      <elementAttributes/>
+      <pos x="1560" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>db-jogadafeita</string>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="1560" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="1240" y="520"/>
+      <pos x="1080" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="1240" y="560"/>
+      <pos x="1080" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes/>
-      <pos x="1240" y="600"/>
+      <pos x="1080" y="640"/>
     </visualElement>
     <visualElement>
-      <elementName>Ground</elementName>
-      <elementAttributes/>
-      <pos x="1380" y="620"/>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>db-clock</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="540"/>
     </visualElement>
     <visualElement>
-      <elementName>Ground</elementName>
-      <elementAttributes/>
-      <pos x="1480" y="620"/>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>db-iniciar</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="580"/>
     </visualElement>
     <visualElement>
-      <elementName>Ground</elementName>
-      <elementAttributes/>
-      <pos x="1580" y="620"/>
+      <elementName>Text</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>db-tem-jogada</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="620"/>
     </visualElement>
     <visualElement>
-      <elementName>Ground</elementName>
-      <elementAttributes/>
-      <pos x="1680" y="620"/>
+      <elementName>Button</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Button</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="620" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Button</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Button</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="700" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>mirror</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1,1,1,1</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>4</string>
+        </entry>
+      </elementAttributes>
+      <pos x="680" y="540"/>
+    </visualElement>
+    <visualElement>
+      <elementName>LED</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Color</string>
+          <awt-color>
+            <red>51</red>
+            <green>204</green>
+            <blue>0</blue>
+            <alpha>255</alpha>
+          </awt-color>
+        </entry>
+      </elementAttributes>
+      <pos x="620" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>LED</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>LED</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Color</string>
+          <awt-color>
+            <red>0</red>
+            <green>51</green>
+            <blue>255</blue>
+            <alpha>255</alpha>
+          </awt-color>
+        </entry>
+      </elementAttributes>
+      <pos x="700" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>LED</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Color</string>
+          <awt-color>
+            <red>255</red>
+            <green>0</green>
+            <blue>255</blue>
+            <alpha>255</alpha>
+          </awt-color>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>mirror</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>4</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>1,1,1,1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="780"/>
     </visualElement>
     <visualElement>
       <elementName>Button</elementName>
       <elementAttributes/>
-      <pos x="520" y="320"/>
+      <pos x="660" y="360"/>
     </visualElement>
     <visualElement>
-      <elementName>Seven-Seg-Hex</elementName>
+      <elementName>Button</elementName>
       <elementAttributes/>
-      <pos x="1320" y="460"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Seven-Seg-Hex</elementName>
-      <elementAttributes/>
-      <pos x="1420" y="460"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Seven-Seg-Hex</elementName>
-      <elementAttributes/>
-      <pos x="1520" y="460"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Seven-Seg-Hex</elementName>
-      <elementAttributes/>
-      <pos x="1620" y="460"/>
+      <pos x="660" y="400"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="520" y="320"/>
-      <p2 x="740" y="320"/>
+      <p1 x="1000" y="320"/>
+      <p2 x="1080" y="320"/>
     </wire>
     <wire>
-      <p1 x="1100" y="320"/>
-      <p2 x="1240" y="320"/>
+      <p1 x="940" y="480"/>
+      <p2 x="1400" y="480"/>
     </wire>
     <wire>
-      <p1 x="1040" y="480"/>
-      <p2 x="1240" y="480"/>
+      <p1 x="1020" y="640"/>
+      <p2 x="1080" y="640"/>
     </wire>
     <wire>
-      <p1 x="1140" y="640"/>
-      <p2 x="1460" y="640"/>
+      <p1 x="520" y="160"/>
+      <p2 x="1220" y="160"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="800"/>
+      <p2 x="660" y="800"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="420"/>
+      <p2 x="1020" y="420"/>
     </wire>
     <wire>
       <p1 x="720" y="420"/>
       <p2 x="740" y="420"/>
     </wire>
     <wire>
-      <p1 x="1040" y="420"/>
-      <p2 x="1120" y="420"/>
+      <p1 x="940" y="580"/>
+      <p2 x="1020" y="580"/>
     </wire>
     <wire>
-      <p1 x="1040" y="580"/>
-      <p2 x="1140" y="580"/>
+      <p1 x="620" y="580"/>
+      <p2 x="640" y="580"/>
     </wire>
     <wire>
-      <p1 x="520" y="360"/>
-      <p2 x="720" y="360"/>
+      <p1 x="640" y="740"/>
+      <p2 x="660" y="740"/>
     </wire>
     <wire>
-      <p1 x="1040" y="360"/>
-      <p2 x="1060" y="360"/>
+      <p1 x="940" y="520"/>
+      <p2 x="1600" y="520"/>
     </wire>
     <wire>
-      <p1 x="1120" y="360"/>
-      <p2 x="1240" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="1220" y="520"/>
-      <p2 x="1240" y="520"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="520"/>
-      <p2 x="1200" y="520"/>
-    </wire>
-    <wire>
-      <p1 x="1100" y="680"/>
-      <p2 x="1660" y="680"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="460"/>
-      <p2 x="1160" y="460"/>
-    </wire>
-    <wire>
-      <p1 x="1160" y="620"/>
-      <p2 x="1360" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="620"/>
-      <p2 x="1100" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="520" y="400"/>
-      <p2 x="740" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="400"/>
-      <p2 x="1100" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="1140" y="400"/>
-      <p2 x="1240" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="1060" y="240"/>
-      <p2 x="1240" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="1200" y="560"/>
-      <p2 x="1240" y="560"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="560"/>
-      <p2 x="1160" y="560"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="500"/>
-      <p2 x="1220" y="500"/>
-    </wire>
-    <wire>
-      <p1 x="1120" y="660"/>
-      <p2 x="1560" y="660"/>
-    </wire>
-    <wire>
-      <p1 x="520" y="440"/>
-      <p2 x="720" y="440"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="440"/>
-      <p2 x="1140" y="440"/>
-    </wire>
-    <wire>
-      <p1 x="1160" y="440"/>
-      <p2 x="1240" y="440"/>
-    </wire>
-    <wire>
-      <p1 x="1080" y="280"/>
-      <p2 x="1240" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="1180" y="600"/>
-      <p2 x="1240" y="600"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="600"/>
-      <p2 x="1120" y="600"/>
-    </wire>
-    <wire>
-      <p1 x="720" y="380"/>
-      <p2 x="740" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="380"/>
-      <p2 x="1080" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="540"/>
-      <p2 x="1180" y="540"/>
-    </wire>
-    <wire>
-      <p1 x="1120" y="360"/>
-      <p2 x="1120" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="1120" y="600"/>
-      <p2 x="1120" y="660"/>
-    </wire>
-    <wire>
-      <p1 x="740" y="320"/>
-      <p2 x="740" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="1060" y="240"/>
-      <p2 x="1060" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="1220" y="500"/>
-      <p2 x="1220" y="520"/>
-    </wire>
-    <wire>
-      <p1 x="1380" y="600"/>
-      <p2 x="1380" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="1160" y="440"/>
-      <p2 x="1160" y="460"/>
-    </wire>
-    <wire>
-      <p1 x="1160" y="560"/>
-      <p2 x="1160" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="1480" y="600"/>
-      <p2 x="1480" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="1100" y="320"/>
-      <p2 x="1100" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="1100" y="620"/>
-      <p2 x="1100" y="680"/>
-    </wire>
-    <wire>
-      <p1 x="1580" y="600"/>
-      <p2 x="1580" y="620"/>
+      <p1 x="940" y="360"/>
+      <p2 x="960" y="360"/>
     </wire>
     <wire>
       <p1 x="720" y="360"/>
-      <p2 x="720" y="380"/>
+      <p2 x="740" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="360"/>
+      <p2 x="700" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="360"/>
+      <p2 x="1220" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="300"/>
+      <p2 x="720" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="460"/>
+      <p2 x="1060" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="400"/>
+      <p2 x="740" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="400"/>
+      <p2 x="1000" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="400"/>
+      <p2 x="1080" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="240"/>
+      <p2 x="1080" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="560"/>
+      <p2 x="1080" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="560"/>
+      <p2 x="1040" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="580" y="560"/>
+      <p2 x="620" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="560"/>
+      <p2 x="700" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="500"/>
+      <p2 x="1500" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="980" y="280"/>
+      <p2 x="1080" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="440"/>
+      <p2 x="1040" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="440"/>
+      <p2 x="1300" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="440"/>
+      <p2 x="720" y="440"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="600"/>
+      <p2 x="1080" y="600"/>
+    </wire>
+    <wire>
+      <p1 x="580" y="760"/>
+      <p2 x="600" y="760"/>
+    </wire>
+    <wire>
+      <p1 x="660" y="760"/>
+      <p2 x="700" y="760"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="540"/>
+      <p2 x="1060" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="940" y="380"/>
+      <p2 x="980" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="700" y="380"/>
+      <p2 x="740" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="960" y="240"/>
+      <p2 x="960" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="1600" y="340"/>
+      <p2 x="1600" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="540"/>
+      <p2 x="640" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="740"/>
+      <p2 x="640" y="760"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="440"/>
+      <p2 x="1060" y="460"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="540"/>
+      <p2 x="1060" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="1220" y="160"/>
+      <p2 x="1220" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="580" y="560"/>
+      <p2 x="580" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="580" y="720"/>
+      <p2 x="580" y="760"/>
+    </wire>
+    <wire>
+      <p1 x="1000" y="320"/>
+      <p2 x="1000" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="1320" y="340"/>
+      <p2 x="1320" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="540"/>
+      <p2 x="680" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="680" y="440"/>
+      <p2 x="680" y="520"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="160"/>
+      <p2 x="520" y="800"/>
+    </wire>
+    <wire>
+      <p1 x="1420" y="340"/>
+      <p2 x="1420" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="540"/>
+      <p2 x="620" y="560"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="580"/>
+      <p2 x="620" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="620" y="720"/>
+      <p2 x="620" y="760"/>
+    </wire>
+    <wire>
+      <p1 x="1520" y="340"/>
+      <p2 x="1520" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="720" y="300"/>
+      <p2 x="720" y="360"/>
     </wire>
     <wire>
       <p1 x="720" y="420"/>
       <p2 x="720" y="440"/>
     </wire>
     <wire>
-      <p1 x="1200" y="520"/>
-      <p2 x="1200" y="560"/>
+      <p1 x="1040" y="400"/>
+      <p2 x="1040" y="440"/>
     </wire>
     <wire>
-      <p1 x="1360" y="600"/>
-      <p2 x="1360" y="620"/>
+      <p1 x="1040" y="560"/>
+      <p2 x="1040" y="600"/>
     </wire>
     <wire>
-      <p1 x="1680" y="600"/>
-      <p2 x="1680" y="620"/>
+      <p1 x="1300" y="340"/>
+      <p2 x="1300" y="440"/>
     </wire>
     <wire>
-      <p1 x="1140" y="400"/>
-      <p2 x="1140" y="440"/>
+      <p1 x="1620" y="340"/>
+      <p2 x="1620" y="360"/>
     </wire>
     <wire>
-      <p1 x="1140" y="580"/>
-      <p2 x="1140" y="640"/>
+      <p1 x="980" y="280"/>
+      <p2 x="980" y="380"/>
     </wire>
     <wire>
-      <p1 x="1460" y="600"/>
-      <p2 x="1460" y="640"/>
+      <p1 x="660" y="540"/>
+      <p2 x="660" y="620"/>
     </wire>
     <wire>
-      <p1 x="1080" y="280"/>
-      <p2 x="1080" y="380"/>
+      <p1 x="660" y="720"/>
+      <p2 x="660" y="740"/>
     </wire>
     <wire>
-      <p1 x="1560" y="600"/>
-      <p2 x="1560" y="660"/>
+      <p1 x="660" y="780"/>
+      <p2 x="660" y="800"/>
     </wire>
     <wire>
-      <p1 x="1180" y="540"/>
-      <p2 x="1180" y="600"/>
+      <p1 x="1400" y="340"/>
+      <p2 x="1400" y="480"/>
     </wire>
     <wire>
-      <p1 x="1660" y="600"/>
-      <p2 x="1660" y="680"/>
+      <p1 x="700" y="560"/>
+      <p2 x="700" y="620"/>
+    </wire>
+    <wire>
+      <p1 x="700" y="720"/>
+      <p2 x="700" y="760"/>
+    </wire>
+    <wire>
+      <p1 x="700" y="360"/>
+      <p2 x="700" y="380"/>
+    </wire>
+    <wire>
+      <p1 x="1500" y="340"/>
+      <p2 x="1500" y="500"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="360"/>
+      <p2 x="1020" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="1020" y="580"/>
+      <p2 x="1020" y="640"/>
     </wire>
   </wires>
   <measurementOrdering/>

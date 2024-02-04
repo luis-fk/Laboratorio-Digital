@@ -1,0 +1,8 @@
+*.*
+!*.v
+!*.qar
+!comp.txt
+!*.pdf
+!*.zip
+!.gitignore
+
