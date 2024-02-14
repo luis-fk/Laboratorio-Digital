@@ -14,9 +14,7 @@ module circuito_exp5 (
     output [6:0] db_jogadafeita,
     output       db_clock      ,
     output       db_iniciar    ,
-    output       db_tem_jogada ,
-	 output [6:0] db_contagem_inativo,
-	 output       db_timeout
+    output       db_tem_jogada
 );
 
     /* diversos wires usados para conexão entre os módulos abaixo */
@@ -24,7 +22,6 @@ module circuito_exp5 (
     wire [3:0] s_contagem;
     wire [3:0] s_memoria;
     wire [3:0] s_estado;
-	 wire [3:0] s_contagem_inativo;
     wire wireFimC; 
     wire wireContaC;
     wire wireZeraC;
@@ -33,9 +30,6 @@ module circuito_exp5 (
     wire wireIgual;
     wire wureJogada;
     wire [3:0] wire_db_jogada;
-	 wire wireZeraInativo;
-	 wire wireContaInativo;
-	 wire wireInativo;
 
     /* assigns usados para contctar as saídas dos módulos abaixo
        com a saída desse circuito */
@@ -54,20 +48,14 @@ module circuito_exp5 (
         .zeraR          (    wireZeraR   ),
         .registraR      (  wireRegistraR ),
         .chaves         (     chaves     ),
-		  .zeraInativo    ( wireZeraInativo),
-		  .contaInativo   ( wireContaInativo),
-		  .inativo        (  wireInativo   ),
         .igual          (   wireIgual    ),
         .fimC           (    wireFimC    ),
         .jogada_feita   (   wireJogada   ), 
         .db_tem_jogada  (  db_tem_jogada ),
-		  .db_timeout     (  db_timeout   ),
         .db_contagem    (   s_contagem   ),
         .db_memoria     ( s_memoria      ),
-        .db_jogada      ( wire_db_jogada ),
-		  .db_contagem_inativo (s_contagem_inativo)
+        .db_jogada      ( wire_db_jogada )
     );
-	 
 
     /* responsável pela mudança de estados do sistema e envio
        de sinais para o mesmo */
@@ -78,19 +66,15 @@ module circuito_exp5 (
         .fim       ( wireFimC ), //abaixo são as saídas
         .jogada    ( wireJogada), 
         .igual     ( wireIgual ),
-		  .inativo   ( wireInativo ),
         .zeraC     ( wireZeraC ),
         .contaC    ( wireContaC ),
-		  .contaInativo (wireContaInativo),
         .zeraR     ( wireZeraR ),
-		  .zeraInativo (wireZeraInativo ),
         .registraR ( wireRegistraR ),
         .acertou   ( acertou ),
         .errou     ( errou ),
         .pronto    ( pronto ),
         .db_estado ( s_estado )
     );
-	 
 
 /* -------------------------------------------------------- */
 /* abaixo estão displays para 4 saídas diferentes de 4 bits */
@@ -114,11 +98,6 @@ hexa7seg HEX2 (
 hexa7seg HEX5 (
     .hexa ( s_estado ),
     .display ( db_estado )
-);
-
-hexa7seg HEX3 (
-    .hexa ( s_contagem_inativo ),
-    .display ( db_contagem_inativo )
 );
 
 endmodule
