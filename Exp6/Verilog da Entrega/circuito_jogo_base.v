@@ -137,11 +137,11 @@ hexa7seg HEX3 (
     .display ( db_contagem_inativo )
 );
 
-// Mostra a rodada atual
-hexa7seg HEX4 (
-    .hexa    ( s_estado  ),
-    .display ( db_estado )
-);
+// // Mostra a rodada atual
+// hexa7seg HEX4 (
+//     .hexa    ( s_estado  ),
+//     .display ( db_estado )
+// );
 
 // Mostra o estado atual
 hexa7seg HEX5 (

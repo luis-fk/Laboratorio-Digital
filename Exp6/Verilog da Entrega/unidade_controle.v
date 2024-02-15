@@ -62,7 +62,7 @@ module unidade_controle (
     end
 
     /* -------------------------------------------------------------------------------------- */
-                                        /* DESATUALIZADO */
+                                        //* DESATUALIZADO *//
     /* -------------------------------------------------------------------------------------- */
     /* O funcionamento dessa unidade de controle começa no estado 0 quando o circuito 
        é acionado, tendo inicio somente quando o sinal iniciar for ativado, passado 
@@ -123,13 +123,13 @@ module unidade_controle (
 
         ganhou         = (Eatual == final_com_acertos) ? 1'b1 : 1'b0; 
 
-        perdeu         = (Eatual == final_com_erro) ? 1'b1 : 1'b0;
+        perdeu         = (Eatual == final_com_erro || Eatual == final_com_timeout) ? 1'b1 : 1'b0;
 
 		zeraInativo    = (Eatual == inicial              || 
                           Eatual == inicializa_elementos || 
                           Eatual == registra_jogada      ) ? 1'b1 : 1'b0;
                          
-		contaInativo   = (Eatual == espera_jogada) ? 1'b1 : 1'b0;
+		contaInativo   = (Eatual == espera_jogada || Eatual == final_com_timeout) ? 1'b1 : 1'b0;
 
         // Saída de depuração (estado)
         case (Eatual)
