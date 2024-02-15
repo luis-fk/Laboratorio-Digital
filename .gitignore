@@ -10,3 +10,4 @@ _info
 _vmake
 transcript
 db/*
+!*.dig

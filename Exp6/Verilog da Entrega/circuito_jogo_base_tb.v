@@ -50,11 +50,11 @@ module circuit_jogo_base_tb;
     always #((clockPeriod / 2)) clock_in = ~clock_in;
 
     // instanciacao do DUT (Device Under Test)
-    circuit_jogo_base dut (
+    circuito_jogo_base dut (
       .clock          ( clock_in    ),
       .reset          ( reset_in    ),
       .iniciar        ( iniciar_in  ),
-      .chaves         ( chaves_in   ),
+      .botoes         ( chaves_in   ),
       .acertou        ( acertou_out ),
       .errou          ( errou_out   ),
       .pronto         ( pronto_out  ),
@@ -68,8 +68,8 @@ module circuit_jogo_base_tb;
       .db_iniciar     ( db_iniciar_out     ),    
       .db_tem_jogada  ( db_tem_jogada_out  )
     );
-
-    // geracao dos sinais de entrada (estimulos)
+    
+    // geração dos sinais de entrada (estimulos)
     initial begin
       $display("Inicio da simulacao");
 

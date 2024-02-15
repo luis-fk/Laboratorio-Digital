@@ -8,6 +8,6 @@ modulos/hexa7seg.v
 modulos/registrador_4.v
 modulos/sync_rom_16x4.v
 circuito_jogo_base.v
-circuito_jogo_base_tb.v
+#circuito_jogo_base_tb.v
 fluxo_dados.v
 unidade_controle.v
