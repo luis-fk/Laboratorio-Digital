@@ -1,0 +1,15 @@
+# Para compilar: iverilog -c comp.txt
+
+modulos/comparador_85.v
+modulos/contador_163.v
+modulos/contador_m.v
+modulos/edge_detector.v
+modulos/hexa7seg.v
+modulos/registrador_4.v
+modulos/sync_rom_16x4.v
+circuito_jogo_base.v
+circuito_jogo_base_c1_tb.v
+circuito_jogo_base_c2_tb.v
+circuito_jogo_base_c3_tb.v
+fluxo_dados.v
+unidade_controle.v
