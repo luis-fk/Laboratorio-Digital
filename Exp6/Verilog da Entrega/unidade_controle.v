@@ -17,8 +17,8 @@ module unidade_controle (
     input      reset       ,
     input      iniciar     ,
     input      fim_jogada  ,
-    input      fim_rodada  , //saida do comparador (comparador do contador de jogada com o contador de rodada)
-    input      fim_jogo    , //RCO do contador de rodada
+    input      fim_rodada  , 
+    input      fim_jogo    , 
     input      jogada      , 
     input      jogada_igual,
 	input      inativo     ,
@@ -61,31 +61,18 @@ module unidade_controle (
             Eatual <= Eprox;
     end
 
-    /* -------------------------------------------------------------------------------------- */
-                                        //* DESATUALIZADO *//
-    /* -------------------------------------------------------------------------------------- */
-    /* O funcionamento dessa unidade de controle começa no estado 0 quando o circuito 
-       é acionado, tendo inicio somente quando o sinal iniciar for ativado, passado 
-       pelo estado 1 que inicializa os elementos e vai logo para o estado 2 onde o circuito
-       espera por uma jogada. Uma vez feita a jogada o circuito vai para o estado 3, onde ele 
-       registra a jogada, indo imediatamente para o estado 4 onde ele faz a comparação, e então
-       prossege para a próxima jogada se estiver tudo certo. Caso o usuário erre a tentativa, o
-       circuito vai para o estado 7. Caso o usuário acerte todas as tentativas, o circuito vai 
-       para o estado 6 */
-    /* -------------------------------------------------------------------------------------- */
-    /* -------------------------------------------------------------------------------------- */
-    
+
+
     always @* begin
         case (Eatual)
             inicial:              Eprox = iniciar ? inicializa_elementos : inicial;
             inicializa_elementos: Eprox = inicio_da_rodada;
             inicio_da_rodada:     Eprox = espera_jogada;
-            espera_jogada:        Eprox = (jogada && ~inativo) ? registra_jogada : inativo ? final_com_timeout : espera_jogada;
+            espera_jogada:        Eprox = (jogada && ~inativo) ? registra_jogada : 
+                                           inativo ? final_com_timeout : espera_jogada;
             registra_jogada:      Eprox = compara_jogada;
-            // compara_jogada:       Eprox = jogada_igual ? ((fim_jogada && fim_jogo) ? ultima_rodada : proxima_jogada) : final_com_erro;
-            
-            compara_jogada:       Eprox = ~jogada_igual ? final_com_erro : (jogada_igual && fim_rodada) ? ultima_rodada : proxima_jogada ;
-
+            compara_jogada:       Eprox = ~jogada_igual ? final_com_erro : 
+                                          (jogada_igual && fim_rodada) ? ultima_rodada : proxima_jogada ;
             ultima_rodada:        Eprox = fim_jogo ? final_com_acertos : proxima_rodada;
             proxima_rodada:       Eprox = inicio_da_rodada;
             proxima_jogada:       Eprox = espera_jogada;

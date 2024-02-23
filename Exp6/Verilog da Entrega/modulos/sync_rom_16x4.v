@@ -1,18 +1,13 @@
 //------------------------------------------------------------------
 // Arquivo   : sync_rom_16x4.v
-// Projeto   : Experiencia 4 - Projeto de uma Unidade de Controle 
+// Projeto   : Experiencia 6 - Projeto Base do Jogo do Desafio da Memória
 //------------------------------------------------------------------
 // Descricao : ROM sincrona 16x4
 //             
 //------------------------------------------------------------------
-// Revisoes  :
-//     Data        Versao  Autor             Descricao
-//     14/12/2023  1.0     Edson Midorikawa  versao inicial
-//------------------------------------------------------------------
-//
 module sync_rom_16x4 (clock, address, data_out);
-    input            clock;
-    input      [3:0] address;
+    input            clock   ;
+    input      [3:0] address ;
     output reg [3:0] data_out;
 
     always @ (posedge clock)
@@ -37,4 +32,5 @@ module sync_rom_16x4 (clock, address, data_out);
         endcase
     end
 endmodule
+
 

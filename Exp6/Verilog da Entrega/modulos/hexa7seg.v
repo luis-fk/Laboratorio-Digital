@@ -1,6 +1,6 @@
 /* ----------------------------------------------------------------
  * Arquivo   : hexa7seg.v
- * Projeto   : Experiencia 3 - Um Fluxo de Dados Simples
+ * Projeto   : Experiencia 6 - Projeto Base do Jogo do Desafio da Memória
  *--------------------------------------------------------------
  * Descricao : decodificador hexadecimal para 
  *             display de 7 segmentos 
@@ -13,10 +13,6 @@
  * dica de uso: mapeamento para displays da placa DE0-CV
  *              bit 6 mais significativo é o bit a esquerda
  *              p.ex. sseg(6) -> HEX0[6] ou HEX06
- *--------------------------------------------------------------
- * Revisoes  :
- *     Data        Versao  Autor             Descricao
- *     24/12/2023  1.0     Edson Midorikawa  criacao
  *--------------------------------------------------------------
  */
 

@@ -18,12 +18,12 @@
 
 module contador_m #(parameter M=16, N=4)
   (
-   input  wire          clock,
+   input  wire          clock  ,
    input  wire          zera_as,
-   input  wire          zera_s,
-   input  wire          conta,
-   output reg  [N-1:0]  Q,
-   output reg           fim,
+   input  wire          zera_s ,
+   input  wire          conta  ,
+   output reg  [N-1:0]  Q      ,
+   output reg           fim    ,
    output reg           meio
   );
 

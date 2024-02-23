@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------------------
  *  Arquivo   : edge_detector.v
- *  Projeto   : Experiencia 5 - Desenvolvimento de Projeto de
- *                              Circuitos Digitais com FPGA
+ *  Projeto   : Experiencia 6 - Projeto Base do 
+ *                              Jogo do Desafio da Memória
  * ------------------------------------------------------------------------
  *  Descricao : detector de borda
  *              gera um pulso na saida de 1 periodo de clock
@@ -11,10 +11,6 @@
  * 
  *              > codigo adaptado a partir de codigo VHDL disponivel em
  *                https://surf-vhdl.com/how-to-design-a-good-edge-detector/
- * ------------------------------------------------------------------------
- *  Revisoes  :
- *      Data        Versao  Autor             Descricao
- *      26/01/2024  1.0     Edson Midorikawa  versao inicial
  * ------------------------------------------------------------------------
  */
  

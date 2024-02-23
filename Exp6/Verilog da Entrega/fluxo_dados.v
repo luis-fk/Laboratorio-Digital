@@ -1,17 +1,10 @@
 /*
  * ------------------------------------------------------------------
- *  Arquivo   : circuito_exp3_ativ2-PARCIAL.v
- *  Projeto   : Experiencia 3 - Um Fluxo de Dados Simples
+ *  Arquivo   : circuito_exp6_ativ1.v
+ *  Projeto   : Experiencia 6 - Projeto Base do Jogo do Desafio da Memória
  * ------------------------------------------------------------------
- *  Descricao : Circuito PARCIAL do fluxo de dados da Atividade 2
+ *  Descricao : Circuito da atividade 1 da experiência 6. 
  * 
- *     1) COMPLETAR DESCRICAO
- * 
- * ------------------------------------------------------------------
- *  Revisoes  :
- *      Data        Versao  Autor             Descricao
- *      11/01/2024  1.0     Edson Midorikawa  versao inicial
- * ------------------------------------------------------------------
  */
 
 module fluxo_dados (
@@ -37,26 +30,26 @@ module fluxo_dados (
    output [3:0] db_memoria  ,
    output [3:0] db_jogada   ,
    output [3:0] db_rodada   ,
-   output [3:0] db_contagem_inativo
+   output [15:0] db_contagem_inativo
    );
 
     // sinais internos para interligacao dos componentes
-   wire ALBo, AGBo;
+   wire ALBo, AGBo      ;
    wire [3:0] s_endereco; 
-   wire [3:0] s_rodada;
-   wire [3:0] s_chaves;
-   wire [3:0] s_dado;
-   wire tem_jogada;
-   wire wireJogadaIgual;
+   wire [3:0] s_rodada  ;
+   wire [3:0] s_chaves  ;
+   wire [3:0] s_dado    ;
+   wire tem_jogada      ;
+   wire wireJogadaIgual ;
     
     /* redirecionamento dos wires para as saídas desse módulo */
-    assign db_contagem = s_endereco;
-    assign db_jogada = s_chaves;
-    assign db_memoria = s_dado;
-    assign db_tem_jogada = tem_jogada;
+    assign db_contagem = s_endereco      ;
+    assign db_jogada = s_chaves          ;
+    assign db_memoria = s_dado           ;
+    assign db_tem_jogada = tem_jogada    ;
     assign jogada_igual = wireJogadaIgual;
-	 assign db_rodada = s_rodada;
-	 assign db_timeout = inativo;
+	 assign db_rodada = s_rodada          ;
+	 assign db_timeout = inativo          ;
 
    /* or responsável pelo sinal que será mandado para o
       edge_detector e para o sinal de depuração tem_jogada */
@@ -83,7 +76,7 @@ module fluxo_dados (
       .fim     (    fim_jogada ),
       .meio    (               )
    );
-
+   /* contador responsável por contar as rodadas */
    contador_m contador_rodada (
       .clock   (     clock    ),
       .zera_as (  zera_rodada ),
@@ -93,7 +86,7 @@ module fluxo_dados (
       .fim     (   fim_jogo   ),
       .meio    (              )
    );
-		
+	/*contador responsável por mensurar o tempo de inatividade do jogador */
 	contador_163 contador_inativo (
       .clock   (  ~clock               ),
       .clr     (  ~zeraInativo         ),
@@ -111,7 +104,7 @@ module fluxo_dados (
       .address ( s_endereco ),
       .data_out(   s_dado   )
    );
-
+   /* registrador utilizado para salvar a jogada feita pelo usuario */
    registrador_4 reg1 (
       .clock (   clock   ),
       .clear (   zeraR   ),
@@ -120,7 +113,7 @@ module fluxo_dados (
       .Q     ( s_chaves  )
    );
 
-   /* unidade responsável por comparar os valores da saída
+   /* responsável por comparar os valores da saída
       da memória com os da chave enviados pelo usuário */
    comparador_85 comparador_jogada (
       .A   (  s_dado   ),
@@ -133,16 +126,16 @@ module fluxo_dados (
       .AEBo( wireJogadaIgual )
    );
    
-      comparador_85 comparador_rodada (
-      .A   (  s_rodada   ),
-      .B   (  s_endereco ),
-      .ALBi(  1'b0       ),
-      .AGBi(  1'b0       ),
-      .AEBi(  1'b1       ),
-      .ALBo(             ),
-      .AGBo(             ),
-      .AEBo( fim_rodada  )
+   /* responsável por comparar a rodada atual com a jogada atual*/
+   comparador_85 comparador_rodada (
+   .A   (  s_rodada   ),
+   .B   (  s_endereco ),
+   .ALBi(  1'b0       ),
+   .AGBi(  1'b0       ),
+   .AEBi(  1'b1       ),
+   .ALBo(             ),
+   .AGBo(             ),
+   .AEBo( fim_rodada  )
    );
     
  endmodule
-

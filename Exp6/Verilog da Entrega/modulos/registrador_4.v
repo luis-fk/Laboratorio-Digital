@@ -11,10 +11,10 @@
 //------------------------------------------------------------------
 //
 module registrador_4 (
-    input        clock,
-    input        clear,
+    input        clock ,
+    input        clear ,
     input        enable,
-    input  [3:0] D,
+    input  [3:0] D     ,
     output [3:0] Q
 );
 
