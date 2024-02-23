@@ -42,15 +42,18 @@ module circuito_jogo_base (
     wire wireFim_jogo        ;
     wire wireZera_rodada     ;
     wire wireConta_rodada    ;
+	 wire wireRamWE;
 
     /* assigns usados para contctar as saídas dos módulos abaixo
        com a saída desse circuito */
     assign db_iniciar = jogar        ;
     assign db_igual = wireIgual      ;
-    assign leds = s_memoria          ;
+    assign leds = botoes             ;
     assign s_chaves = botoes         ;
-    assign db_rodada = wire_db_rodada;
+    //assign db_rodada = wire_db_rodada;
+	 
 
+	 
     /* fluxo de dados responsável pelo funcionamento do circuito 
        quando se trata de mudança de valores internos do sistema */
     fluxo_dados fluxo (
@@ -64,6 +67,7 @@ module circuito_jogo_base (
         .botoes              (     botoes         ),
 		.zeraInativo         ( wireZeraInativo    ),
 		.contaInativo        ( wireContaInativo   ),
+		.ramWE                ( wireRamWE),
 		.inativo             (  wireInativo       ),
         .jogada_igual        (   wireIgual        ),
         .fim_jogada          ( wireFim_jogada     ),
@@ -90,19 +94,20 @@ module circuito_jogo_base (
         .fim_jogo      ( wireFim_jogo     ),
         .jogada        ( wireJogada       ), 
         .jogada_igual  ( wireIgual        ),
-		.inativo       ( wireInativo      ),
+		.inativo         ( wireInativo      ),
         .zera_jogada   ( wireZera_jogada  ),
         .conta_jogada  ( wireConta_jogada ),
         .zera_rodada   ( wireZera_rodada  ),
         .conta_rodada  ( wireConta_rodada ),
-		.contaInativo  ( wireContaInativo ),
+		.contaInativo    ( wireContaInativo ),
         .zeraR         ( wireZeraR        ),
-		.zeraInativo   ( wireZeraInativo  ),
+		.zeraInativo     ( wireZeraInativo  ),
         .registraR     ( wireRegistraR    ),
         .ganhou        ( ganhou           ),
         .perdeu        ( perdeu           ),
         .pronto        ( pronto           ),
-        .db_estado     ( s_estado         )
+        .db_estado     ( s_estado         ),
+		  .ramWE         (wireRamWE         )
     );
 	 
 
@@ -110,7 +115,7 @@ module circuito_jogo_base (
 /* abaixo estão displays para 4 saídas diferentes de 4 bits */
 /* -------------------------------------------------------- */
 
-// Mostra a posição da memória
+// Mostra o contador da memoria
 hexa7seg HEX0 (
     .hexa    ( s_contagem  ),
     .display ( db_contagem )
@@ -127,6 +132,13 @@ hexa7seg HEX2 (
     .hexa    ( wire_db_jogada ),
     .display ( db_jogadafeita )
 );
+
+// Db rodada
+hexa7seg HEX3 (
+    .hexa    ( wire_db_rodada ),
+    .display ( db_rodada )
+);
+
 
 // Mostra o estado atual
 hexa7seg HEX5 (

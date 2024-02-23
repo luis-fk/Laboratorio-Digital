@@ -33,6 +33,7 @@ module unidade_controle (
     output reg ganhou      ,
     output reg perdeu      ,
     output reg pronto      ,
+    output reg ramWE       ,
     output reg [3:0] db_estado
 );
     
@@ -46,9 +47,11 @@ module unidade_controle (
     parameter proxima_jogada       = 4'b0110; // 6
     parameter proxima_rodada       = 4'b0111; // 7
     parameter ultima_rodada        = 4'b1000; // 8
+	 parameter espera_nova          = 4'b1001; // 9 //
     parameter final_com_acertos    = 4'b1010; // A
+	 parameter registra_nova        = 4'b1011; // B //
     parameter final_com_erro       = 4'b1110; // E
-	parameter final_com_timeout    = 4'b1111; // F
+	 parameter final_com_timeout    = 4'b1111; // F
 
     // Variáveis de estado
     reg [3:0] Eatual, Eprox;
@@ -73,18 +76,28 @@ module unidade_controle (
             registra_jogada:      Eprox = compara_jogada;
             compara_jogada:       Eprox = ~jogada_igual ? final_com_erro : 
                                           (jogada_igual && fim_rodada) ? ultima_rodada : proxima_jogada ;
-            ultima_rodada:        Eprox = fim_jogo ? final_com_acertos : proxima_rodada;
+            //ultima_rodada:        Eprox = fim_jogo ? final_com_acertos : proxima_rodada;
+				
+				ultima_rodada:        Eprox = fim_jogo ? final_com_acertos : espera_nova;
+				espera_nova:			 Eprox = jogada ? registra_nova : espera_nova;
+				registra_nova:			 Eprox = proxima_rodada;
+				
             proxima_rodada:       Eprox = inicio_da_rodada;
             proxima_jogada:       Eprox = espera_jogada;
             final_com_acertos:    Eprox = reset ? inicializa_elementos : final_com_acertos;
             final_com_erro:       Eprox = reset ? inicializa_elementos : final_com_erro;
-			final_com_timeout:    Eprox = reset ? inicializa_elementos : final_com_timeout;
+			   final_com_timeout:    Eprox = reset ? inicializa_elementos : final_com_timeout;
             default:              Eprox = inicial;
         endcase
     end
 
     // Lógica de saída (maquina Moore)
     always @* begin
+	 
+		  ramWE          = (Eatual == proxima_rodada) ? 1'b1 : 1'b0;
+	 
+	 
+	 
         zera_jogada    = (Eatual == inicial              || 
                           Eatual == inicializa_elementos || 
                           Eatual == inicio_da_rodada     ) ? 1'b1 : 1'b0;
@@ -97,7 +110,9 @@ module unidade_controle (
                           Eatual == final_com_erro       || 
                           Eatual == final_com_timeout    ) ? 1'b1 : 1'b0;
                          
-        conta_jogada   = (Eatual == proxima_jogada) ? 1'b1 : 1'b0; 
+        // conta_jogada   = (Eatual == proxima_jogada) ? 1'b1 : 1'b0; 
+        conta_jogada   = (Eatual == proxima_jogada || Eatual == registra_nova) ? 1'b1 : 1'b0; 
+
 
         pronto         = (Eatual == final_com_acertos || 
                           Eatual == final_com_erro    || 
@@ -106,7 +121,7 @@ module unidade_controle (
         zeraR          = (Eatual == inicial || 
                           Eatual == inicializa_elementos) ? 1'b1 : 1'b0;
 
-        registraR      = (Eatual == registra_jogada) ? 1'b1 : 1'b0;
+        registraR      = (Eatual == registra_jogada || Eatual == registra_nova) ? 1'b1 : 1'b0;
 
         ganhou         = (Eatual == final_com_acertos) ? 1'b1 : 1'b0; 
 
@@ -129,7 +144,9 @@ module unidade_controle (
             proxima_jogada:       db_estado = 4'b0110; // 6
             proxima_rodada:       db_estado = 4'b0111; // 7
             ultima_rodada:        db_estado = 4'b1000; // 8
+				espera_nova:          db_estado = 4'b1001; // 9 //
             final_com_acertos:    db_estado = 4'b1010; // A
+				registra_nova:         db_estado = 4'b1011; // B //
             final_com_erro:       db_estado = 4'b1110; // E
 	        final_com_timeout:    db_estado = 4'b1111; // F
             default:              db_estado = 4'b1101; // D

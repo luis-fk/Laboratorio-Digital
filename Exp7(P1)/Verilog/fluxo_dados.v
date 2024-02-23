@@ -18,6 +18,7 @@ module fluxo_dados (
    input  [3:0] botoes      ,
    input  zeraInativo       ,
    input  contaInativo      ,
+	input  ramWE         ,
    output inativo           ,
    output jogada_igual      ,
    output fim_jogada        ,
@@ -50,7 +51,7 @@ module fluxo_dados (
     assign jogada_igual = wireJogadaIgual;
 	 assign db_rodada = s_rodada          ;
 	 assign db_timeout = inativo          ;
-
+	 
    /* or responsável pelo sinal que será mandado para o
       edge_detector e para o sinal de depuração tem_jogada */
    or (tem_jogada, botoes[3], botoes[2], botoes[1], botoes[0]);
@@ -99,11 +100,15 @@ module fluxo_dados (
    );
     
    /* memoria pre carregada com 16 valores para teste */
-   sync_rom_16x4 mem (
-      .clock   (   clock    ),
-      .address ( s_endereco ),
-      .data_out(   s_dado   )
+   sync_ram_16x4_file mem (
+      .clk     (   clock    ),
+		.we      ( ramWE  ),
+		.data    ( s_chaves   ),
+      .addr    ( s_endereco ),
+      .q       (   s_dado   )
    );
+	
+	
    /* registrador utilizado para salvar a jogada feita pelo usuario */
    registrador_4 reg1 (
       .clock (   clock   ),
@@ -134,7 +139,7 @@ module fluxo_dados (
    .AGBi(  1'b0       ),
    .AEBi(  1'b1       ),
    .ALBo(             ),
-   .AGBo(             ),
+   .AGBo(             ),   
    .AEBo( fim_rodada  )
    );
     
