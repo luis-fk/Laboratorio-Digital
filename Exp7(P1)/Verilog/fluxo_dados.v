@@ -14,6 +14,7 @@ module fluxo_dados (
    input  conta_mostra_led  ,
 
 	input  ramWE             ,
+   output [3:0] leds        , // adicionado
    output inativo           ,
    output jogada_igual      ,
    output fim_jogada        ,
@@ -40,6 +41,7 @@ module fluxo_dados (
    wire [3:0] s_dado    ;
    wire tem_jogada      ;
    wire wireJogadaIgual ;
+   wire wireConta_mostra_led;
     
    /* redirecionamento dos wires para as saídas desse módulo */
    assign db_contagem   = s_endereco     ;
@@ -49,6 +51,7 @@ module fluxo_dados (
    assign jogada_igual  = wireJogadaIgual;
 	assign db_rodada     = s_rodada       ;
 	assign db_timeout    = inativo        ;
+   assign wireConta_mostra_led = conta_mostra_led;
 	 
    /* or responsável pelo sinal que será mandado para o
       edge_detector e para o sinal de depuração tem_jogada */
@@ -62,6 +65,14 @@ module fluxo_dados (
       .reset (  1'b0         ),
       .sinal (  tem_jogada   ),
       .pulso (  jogada_feita )
+   );
+
+
+   mux2x1_n mux_leds(
+      .D0 ( botoes ), 
+      .D1 ( s_dado ), 
+      .SEL( wireConta_mostra_led ), // é um no estado mostra_led
+      .OUT( leds )
    );
 
    /* contador não sensível a toda borda de de subida de clock. Esse
@@ -103,7 +114,7 @@ module fluxo_dados (
       .clock (  ~clock            ),
       .clr   (  ~zera_mostra_led  ),
       .ld    (  1'b1              ),
-      .ent   (  conta_mostra_led  ),
+      .ent   (wireConta_mostra_led),
       .enp   (  1'b1              ),
       .D     (  4'b0000           ),
       .Q     (                    ),

@@ -1,12 +1,12 @@
 module circuito_jogo_base (
-    input  [3:0] botoes ,
-    input        jogar  ,
-    input        reset  ,
-    input        clock  ,
-    output [3:0] leds   , 
-    output       ganhou ,
-    output       perdeu ,
-    output       pronto ,
+    input  [3:0] botoes        ,
+    input        jogar         ,
+    input        reset         ,
+    input        clock         ,
+    output [3:0] leds          , 
+    output       ganhou        ,
+    output       perdeu        ,
+    output       pronto        ,
 
     /* Sinais de depuração */
     output       db_iniciar    , 
@@ -47,14 +47,13 @@ module circuito_jogo_base (
 	wire wireRamWE           ;
 
     wire wire_fim_mostra_led ;
-    wire wireLed;
-    and (wireLed, ~wire_fim_mostra_led, wire_conta_mostra_led);
+    // wire wireLed;
+    // and (wireLed, ~wire_fim_mostra_led, wire_conta_mostra_led);
 
     // se estado = mostra leds, exibir valor de mem[0] = 0001; se não, mostrar botões
     // assign leds = (db_estado == 4'b1100) ? 4'b0001 : botoes;
-    assign leds = botoes | {3'b0, wireLed};
+    // assign leds = botoes | {3'b0, wireLed};
     // or (leds[0], botoes[0], wireLed);
-
 
 
     /* assigns usados para contctar as saídas dos módulos abaixo
@@ -62,7 +61,6 @@ module circuito_jogo_base (
     assign db_iniciar = jogar  ;
     assign db_igual = wireIgual;
     assign s_chaves = botoes   ;
-    assign db_rodada = wire_db_rodada;
 	 
     /* fluxo de dados responsável pelo funcionamento do circuito 
        quando se trata de mudança de valores internos do sistema */
@@ -80,6 +78,7 @@ module circuito_jogo_base (
         .zera_mostra_led     (  wire_zera_mostra_led),
         .conta_mostra_led    (  wire_conta_mostra_led),
 		.ramWE               (  wireRamWE           ),
+        .leds                (  leds                ), //adicionado
 		.inativo             (  wireInativo         ),
         .jogada_igual        (  wireIgual           ),
         .fim_jogada          (  wireFim_jogada      ),
@@ -169,15 +168,6 @@ endmodule
 
 
 
-/*
- * ------------------------------------------------------------------
- *  Arquivo   : circuito_exp6_ativ1.v
- *  Projeto   : Experiencia 6 - Projeto Base do Jogo do Desafio da Memória
- * ------------------------------------------------------------------
- *  Descricao : Circuito da atividade 1 da experiência 6. 
- * 
- */
-
 module fluxo_dados (
    input  clock             ,
    input  zera_jogada       ,
@@ -194,6 +184,7 @@ module fluxo_dados (
    input  conta_mostra_led  ,
 
 	input  ramWE             ,
+   output [3:0] leds        , // adicionado
    output inativo           ,
    output jogada_igual      ,
    output fim_jogada        ,
@@ -201,7 +192,7 @@ module fluxo_dados (
    output fim_jogo          ,
 
    output fim_mostra_led    ,
-   
+
    output jogada_feita      ,
    output db_tem_jogada     ,
    output db_timeout        ,
@@ -220,6 +211,7 @@ module fluxo_dados (
    wire [3:0] s_dado    ;
    wire tem_jogada      ;
    wire wireJogadaIgual ;
+   wire wireConta_mostra_led;
     
    /* redirecionamento dos wires para as saídas desse módulo */
    assign db_contagem   = s_endereco     ;
@@ -229,6 +221,7 @@ module fluxo_dados (
    assign jogada_igual  = wireJogadaIgual;
 	assign db_rodada     = s_rodada       ;
 	assign db_timeout    = inativo        ;
+   assign wireConta_mostra_led = conta_mostra_led;
 	 
    /* or responsável pelo sinal que será mandado para o
       edge_detector e para o sinal de depuração tem_jogada */
@@ -244,7 +237,15 @@ module fluxo_dados (
       .pulso (  jogada_feita )
    );
 
-   /* contador não sensível a toda borade de subida de clock. Esse
+
+   mux2x1_n mux_leds(
+      .D0 ( botoes ), 
+      .D1 ( s_dado ), 
+      .SEL( wireConta_mostra_led ), // é um no estado mostra_led
+      .OUT( leds )
+   );
+
+   /* contador não sensível a toda borda de de subida de clock. Esse
       contador so acrescenta seu valor quando conta é ativo */
    contador_m contador_jogada (
       .clock   (  clock         ),
@@ -283,7 +284,7 @@ module fluxo_dados (
       .clock (  ~clock            ),
       .clr   (  ~zera_mostra_led  ),
       .ld    (  1'b1              ),
-      .ent   (  conta_mostra_led  ),
+      .ent   (wireConta_mostra_led),
       .enp   (  1'b1              ),
       .D     (  4'b0000           ),
       .Q     (                    ),
@@ -702,7 +703,7 @@ module contador_163_5k ( input clock       ,
         else                    Q <= Q;
  
     always @ (Q or ent)
-        if (ent && (Q == 16'd50000))   rco = 1;
+        if (ent && (Q == 16'd5000))   rco = 1;
         else                          rco = 0;
 endmodule
 
@@ -729,6 +730,42 @@ module contador_163_2k ( input clock       ,
         else                    Q <= Q;
  
     always @ (Q or ent)
-        if (ent && (Q == 16'd1000))   rco = 1;
+        if (ent && (Q == 16'd2000))   rco = 1;
         else                          rco = 0;
+endmodule
+
+
+/*------------------------------------------------------------------------
+ * Arquivo   : mux2x1_n.v
+ * Projeto   : Jogo do Desafio da Memoria
+ *------------------------------------------------------------------------
+ * Descricao : multiplexador 2x1 com entradas de n bits (parametrizado) 
+ * 
+ * adaptado a partir do codigo my_4t1_mux.vhd do livro "Free Range VHDL"
+ * 
+ * exemplo de uso: ver testbench mux2x1_n_tb.v
+ *------------------------------------------------------------------------
+ * Revisoes  :
+ *     Data        Versao  Autor             Descricao
+ *     15/02/2024  1.0     Edson Midorikawa  criacao
+ *------------------------------------------------------------------------
+ */
+
+module mux2x1_n #(
+    parameter BITS = 4
+) (
+    input      [BITS-1:0] D0,
+    input      [BITS-1:0] D1,
+    input                 SEL,
+    output reg [BITS-1:0] OUT
+);
+
+always @(*) begin
+    case (SEL)
+        1'b0:    OUT = D0;
+        1'b1:    OUT = D1;
+        default: OUT = {BITS{1'b1}}; // todos os bits em 1
+    endcase
+end
+
 endmodule

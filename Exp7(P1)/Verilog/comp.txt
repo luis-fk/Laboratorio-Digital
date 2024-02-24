@@ -7,6 +7,7 @@ modulos/contador_m.v
 modulos/edge_detector.v
 modulos/hexa7seg.v
 modulos/registrador_4.v
+modulos/mux2x1_n.v
 modulos/sync_ram_16x4_file.v
 circuito_jogo_base.v
 circuito_jogo_base_c1_tb.v
