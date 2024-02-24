@@ -16,10 +16,53 @@
 //------------------------------------------------------------------
 //
 
-module sync_ram_16x4_file #(
-    parameter BINFILE = "ram_init.txt"
-)
-(
+// module sync_ram_16x4_file #(
+//     parameter BINFILE = "ram_init.txt"
+// )
+// (
+//     input        clk,
+//     input        we,
+//     input  [3:0] data,
+//     input  [3:0] addr,
+//     output [3:0] q
+// );
+
+//     // Variavel RAM (armazena dados)
+//     reg [3:0] ram[15:0];
+
+//     // Registra endereco de acesso
+//     reg [3:0] addr_reg;
+
+//     // Especifica conteudo inicial da RAM
+//     // a partir da leitura de arquivo usando $readmemb
+//     initial 
+//     begin : INICIA_RAM
+//         // leitura do conteudo a partir de um arquivo
+//         $readmemb(BINFILE, ram);
+//     end 
+
+//     always @ (posedge clk)
+//     begin
+//         // Escrita da memoria
+//         if (we)
+//             ram[addr] <= data;
+
+//         addr_reg <= addr;
+//     end
+
+//     // Atribuicao continua retorna dado
+//     assign q = ram[addr_reg];
+
+// endmodule
+
+
+
+
+
+
+
+
+module sync_ram_16x4_file(
     input        clk,
     input        we,
     input  [3:0] data,
@@ -37,8 +80,7 @@ module sync_ram_16x4_file #(
     // a partir da leitura de arquivo usando $readmemb
     initial 
     begin : INICIA_RAM
-        // leitura do conteudo a partir de um arquivo
-        $readmemb(BINFILE, ram);
+        ram[4'b0] = 4'b0001;
     end 
 
     always @ (posedge clk)
@@ -54,3 +96,4 @@ module sync_ram_16x4_file #(
     assign q = ram[addr_reg];
 
 endmodule
+

@@ -1,5 +1,5 @@
 
-module contador_163 ( input clock       , 
+module contador_163_2k ( input clock       , 
                       input clr         , 
                       input ld          , 
                       input ent         , 
@@ -20,6 +20,6 @@ module contador_163 ( input clock       ,
         else                    Q <= Q;
  
     always @ (Q or ent)
-        if (ent && (Q == 16'd50000))   rco = 1;
-        else                           rco = 0;
+        if (ent && (Q == 16'd2000))   rco = 1;
+        else                          rco = 0;
 endmodule
