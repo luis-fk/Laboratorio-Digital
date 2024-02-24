@@ -3,9 +3,9 @@
  * Projeto   : Experiencia 5 - Desenvolvimento de Projeto de 
  *             Circuitos Digitais em FPGA
  * --------------------------------------------------------------------
- * Descricao : testbench Verilog MODELO para circuito da Experiencia 5 
+ * Descricao : testbench Verilog MODELO para o desafio circuito da Experiencia 5 
  *
- *             1) Plano de teste com erro na 1° jogada da rodada 4
+ *             1) Plano de teste com timeout de Jogada já feita na 1ª Jogada da 2ª rodada
  *
  * --------------------------------------------------------------------
  * Revisoes  :
@@ -86,7 +86,7 @@ module circuito_jogo_base_c1_tb;
       #clockPeriod;
 
       /*
-       * Cenario de Teste 1 - Erro na rodada 4
+       * Cenario de Teste 1 - timeout de Jogada já feita na 1ª Jogada da 2ª rodada
        */
 
       // resetar circuito
@@ -105,7 +105,17 @@ module circuito_jogo_base_c1_tb;
       #(10*clockPeriod);
       iniciar_in = 0;
       // espera
-      #(10*clockPeriod);
+      #(5000*clockPeriod);
+
+
+
+
+
+
+
+
+
+
 
 
       // RODADA 0
@@ -117,9 +127,14 @@ module circuito_jogo_base_c1_tb;
       // espera entre rodadas
       #(10*clockPeriod);
 
-      
-
-
+      //Salva jogada
+      caso = 4;
+      @(negedge clock_in);
+      botoes_in = 4'b0010;
+      #(10*clockPeriod);
+      botoes_in = 4'b0000;
+      // espera entre jogadas
+      #(10*clockPeriod);
 
 
 
@@ -135,110 +150,15 @@ module circuito_jogo_base_c1_tb;
       botoes_in = 4'b0001;
       #(10*clockPeriod);
       botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
-
-      caso = 5;
-      @(negedge clock_in);
-      botoes_in = 4'b0010;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre rodadas
-      #(10*clockPeriod);
-
-      
-
-
-
-
-
-
-
-
-
-
-      // RODADA 2
-      caso = 6;
-      @(negedge clock_in);
-      botoes_in = 4'b0001;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
-
-      caso = 7;
-      @(negedge clock_in);
-      botoes_in = 4'b0010;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
-      
-      caso = 8;
-      @(negedge clock_in);
-      botoes_in = 4'b0100;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
       // espera entre rodadas
       #(10*clockPeriod);
 
 
 
-
-
-
-
-
-
-
-
-
-
-      // RODADA 3
-      caso = 9;
-      @(negedge clock_in);
-      botoes_in = 4'b0001;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
-
-      caso = 10;
-      @(negedge clock_in);
-      botoes_in = 4'b0010;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
-      
-      caso = 11;
-      @(negedge clock_in);
-      botoes_in = 4'b0100;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
-
-      caso = 12;
-      @(negedge clock_in);
-      botoes_in = 4'b1000;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre rodadas
-      #(10*clockPeriod);
-
-
-      caso = 13;
-      @(negedge clock_in);
-      botoes_in = 4'b1000;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre rodadas
-      #(10*clockPeriod);
 
 
       // espera
-      #(10*clockPeriod);
+      #(10000*clockPeriod);
       caso = 99;
       #100;
       $display("Fim da simulacao");

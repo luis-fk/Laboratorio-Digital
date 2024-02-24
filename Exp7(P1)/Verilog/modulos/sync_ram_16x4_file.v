@@ -81,6 +81,21 @@ module sync_ram_16x4_file(
     initial 
     begin : INICIA_RAM
         ram[4'b0] = 4'b0001;
+        ram[4'd1] = 4'b0000;
+        ram[4'd2] = 4'b0000;
+        ram[4'd3] = 4'b0000;
+        ram[4'd4] = 4'b0000;
+        ram[4'd5] = 4'b0000;
+        ram[4'd6] = 4'b0000;
+        ram[4'd7] = 4'b0000;
+        ram[4'd8] = 4'b0000;
+        ram[4'd9] = 4'b0000;
+        ram[4'd10] = 4'b0000;
+        ram[4'd11] = 4'b0000;
+        ram[4'd12] = 4'b0000;
+        ram[4'd13] = 4'b0000;
+        ram[4'd14] = 4'b0000;
+        ram[4'd15] = 4'b0000;
     end 
 
     always @ (posedge clk)

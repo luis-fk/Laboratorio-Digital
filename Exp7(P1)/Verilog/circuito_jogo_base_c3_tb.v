@@ -1,11 +1,14 @@
+
+
+
+
 /* --------------------------------------------------------------------
- * Arquivo   : circuito_jogo_base_c1_tb.
+ * Arquivo   : circuito_exp5_tb-MODELO.vhd
  * Projeto   : Experiencia 6
  * --------------------------------------------------------------------
- * Descricao : testbench Verilog para circuito da Experiencia 6 
+ * Descricao : Teste para timeout de 1ª Jogada inédita da 2ª rodada
  *
- *             1) Plano de teste com jogadas certas até a 2° rodada e  
- *                inatividade na 1° jogada da 3° rodada
+ *             1) Plano de teste com todas as jogadas certas 
  *
  * --------------------------------------------------------------------
 */
@@ -82,7 +85,7 @@ module circuito_jogo_base_c3_tb;
       #clockPeriod;
 
       /*
-       * Cenario de Teste 1 - Erro na rodada 4
+       * Cenario de Teste 1 - Timeout de 1ª Jogada inédita da 2ª rodada
        */
 
       // resetar circuito
@@ -101,7 +104,8 @@ module circuito_jogo_base_c3_tb;
       #(10*clockPeriod);
       iniciar_in = 0;
       // espera
-      #(10*clockPeriod);
+      #(5000*clockPeriod);
+
 
 
       // RODADA 0
@@ -111,77 +115,36 @@ module circuito_jogo_base_c3_tb;
       #(10*clockPeriod);
       botoes_in = 4'b0000;
       // espera entre rodadas
-      #(100*clockPeriod);
+      #(10*clockPeriod);
 
-      
-
-
-
-
-
-
-
-
-
-
-
-      // RODADA 1
+      // Salva Jogada
       caso = 4;
-      @(negedge clock_in);
-      botoes_in = 4'b0001;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
-
-      caso = 5;
       @(negedge clock_in);
       botoes_in = 4'b0010;
       #(10*clockPeriod);
       botoes_in = 4'b0000;
       // espera entre rodadas
-      #(100*clockPeriod);
-
+      #(10*clockPeriod);
       
-
-
-
-
-
-
-
-
-
-
-      // RODADA 2
-      caso = 6;
+      //RODADA 1
+      caso = 5;
       @(negedge clock_in);
       botoes_in = 4'b0001;
       #(10*clockPeriod);
       botoes_in = 4'b0000;
-      // espera entre jogadas
+      // espera entre rodadas
       #(10*clockPeriod);
 
-      caso = 7;
-      @(negedge clock_in);
-      botoes_in = 4'b0010;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
-      
-      caso = 8;
+      caso = 6;
       @(negedge clock_in);
       botoes_in = 4'b0100;
       #(10*clockPeriod);
       botoes_in = 4'b0000;
-      // espera entre rodadas
-      #(100*clockPeriod);
+      // espera entre jogadas
+      #(10*clockPeriod);
 
-
-      
       // espera
-      #(6000*clockPeriod);
+      #(100*clockPeriod);
       caso = 139;
       #100;
       $display("Fim da simulacao");

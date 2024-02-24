@@ -59,21 +59,15 @@ module unidade_controle (
             inicial:              Eprox = iniciar ? inicializa_elementos : inicial;
             inicializa_elementos: Eprox = mostra_led; 
             mostra_led:           Eprox = fim_mostra_led ? inicio_da_rodada : mostra_led;
-
             inicio_da_rodada:     Eprox = espera_jogada;
             espera_jogada:        Eprox = (jogada && ~inativo) ? registra_jogada : 
                                            inativo ? final_com_timeout : espera_jogada;
             registra_jogada:      Eprox = compara_jogada;
             compara_jogada:       Eprox = ~jogada_igual ? final_com_erro : 
-                                          (jogada_igual && fim_rodada) ? ultima_rodada : proxima_jogada ;
-
+                                          (jogada_igual && fim_rodada) ? ultima_rodada : proxima_jogada;
             ultima_rodada:        Eprox = fim_jogo ? final_com_acertos : espera_nova;
-
-            // espera_nova:		  Eprox = jogada && ~inativo? registra_nova : inativo ? final_com_timeout : espera_nova;
-            espera_nova:		  Eprox = inativo? final_com_timeout : jogada ? registra_nova : espera_nova;
-
+            espera_nova:		  Eprox = inativo ? final_com_timeout : jogada ? registra_nova : espera_nova;
             registra_nova:		  Eprox = proxima_rodada;
-				
             proxima_rodada:       Eprox = inicio_da_rodada;
             proxima_jogada:       Eprox = espera_jogada;
             final_com_acertos:    Eprox = iniciar ? inicializa_elementos : final_com_acertos;

@@ -5,7 +5,7 @@
  * --------------------------------------------------------------------
  * Descricao : testbench Verilog MODELO para o desafio circuito da Experiencia 5 
  *
- *             1) Plano de teste com erro na 1° jogada da rodada 4
+ *             1) Plano de teste com erro na 1° jogada da rodada 2
  *
  * --------------------------------------------------------------------
  * Revisoes  :
@@ -75,9 +75,6 @@ module circuito_jogo_base_desafio_c1_tb;
     
     // geração dos sinais de entrada (estimulos)
     initial begin
-      $dumpfile("circuito_jogo_base_desafio_c1_tb.vcd");
-      $dumpvars(1, circuito_jogo_base_desafio_c1_tb);
-
       $display("Inicio da simulacao");
 
       // condicoes iniciais
@@ -89,7 +86,7 @@ module circuito_jogo_base_desafio_c1_tb;
       #clockPeriod;
 
       /*
-       * Cenario de Teste 1 - Erro na rodada 4
+       * Cenario de Teste 1 - Erro na rodada 2
        */
 
       // resetar circuito
@@ -145,78 +142,83 @@ module circuito_jogo_base_desafio_c1_tb;
 
 
 
-      // RODADA 1
-      caso = 5;
-      @(negedge clock_in);
-      botoes_in = 4'b0001;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
-
-      caso = 6;
-      @(negedge clock_in);
-      botoes_in = 4'b0010;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre rodadas
-      #(10*clockPeriod);
-
-      //salva jogada
-      caso = 7;
-      @(negedge clock_in);
-      botoes_in = 4'b0100;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre rodadas
-      #(10*clockPeriod);
 
 
 
 
 
+      // // RODADA 1
+      // caso = 5;
+      // @(negedge clock_in);
+      // botoes_in = 4'b0001;
+      // #(10*clockPeriod);
+      // botoes_in = 4'b0000;
+      // // espera entre jogadas
+      // #(10*clockPeriod);
+
+      // caso = 6;
+      // @(negedge clock_in);
+      // botoes_in = 4'b0010;
+      // #(10*clockPeriod);
+      // botoes_in = 4'b0000;
+      // // espera entre rodadas
+      // #(10*clockPeriod);
+
+      // //salva jogada
+      // caso = 7;
+      // @(negedge clock_in);
+      // botoes_in = 4'b0100;
+      // #(10*clockPeriod);
+      // botoes_in = 4'b0000;
+      // // espera entre rodadas
+      // #(10*clockPeriod);
 
 
 
 
 
-      // RODADA 2
-      caso = 8;
-      @(negedge clock_in);
-      botoes_in = 4'b0001;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
 
-      caso = 9;
-      @(negedge clock_in);
-      botoes_in = 4'b0010;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
+
+
+
+
+
+
+
+      // // RODADA 2
+      // caso = 8;
+      // @(negedge clock_in);
+      // botoes_in = 4'b0001;
+      // #(10*clockPeriod);
+      // botoes_in = 4'b0000;
+      // // espera entre jogadas
+      // #(10*clockPeriod);
+
+      // caso = 9;
+      // @(negedge clock_in);
+      // botoes_in = 4'b0010;
+      // #(10*clockPeriod);
+      // botoes_in = 4'b0000;
+      // // espera entre jogadas
+      // #(10*clockPeriod);
       
-      caso = 10;
-      @(negedge clock_in);
-      botoes_in = 4'b0100;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre rodadas
-      #(10*clockPeriod);
+      // caso = 10;
+      // @(negedge clock_in);
+      // botoes_in = 4'b0100;
+      // #(10*clockPeriod);
+      // botoes_in = 4'b0000;
+      // // espera entre rodadas
+      // #(10*clockPeriod);
 
 
-      //Registra jogada
-      caso = 11;
-      @(negedge clock_in);
-      botoes_in = 4'b1000;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre rodadas
-      #(10*clockPeriod);
-
-
-
+      // //Registra jogada
+      // caso = 11;
+      // @(negedge clock_in);
+      // botoes_in = 4'b1000;
+      // #(10*clockPeriod);
+      // botoes_in = 4'b0000;
+      // // espera entre rodadas
+      // #(10*clockPeriod);
 
 
 
@@ -228,53 +230,43 @@ module circuito_jogo_base_desafio_c1_tb;
 
 
 
-      // RODADA 3
-      caso = 12;
-      @(negedge clock_in);
-      botoes_in = 4'b0001;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
 
-      caso = 13;
-      @(negedge clock_in);
-      botoes_in = 4'b0010;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
+
+
+
+      // // RODADA 3
+      // caso = 12;
+      // @(negedge clock_in);
+      // botoes_in = 4'b0001;
+      // #(10*clockPeriod);
+      // botoes_in = 4'b0000;
+      // // espera entre jogadas
+      // #(10*clockPeriod);
+
+      // caso = 13;
+      // @(negedge clock_in);
+      // botoes_in = 4'b0010;
+      // #(10*clockPeriod);
+      // botoes_in = 4'b0000;
+      // // espera entre jogadas
+      // #(10*clockPeriod);
       
-      caso = 14;
-      @(negedge clock_in);
-      botoes_in = 4'b0100;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre jogadas
-      #(10*clockPeriod);
+      // caso = 14;
+      // @(negedge clock_in);
+      // botoes_in = 4'b0100;
+      // #(10*clockPeriod);
+      // botoes_in = 4'b0000;
+      // // espera entre jogadas
+      // #(10*clockPeriod);
 
-      // Erra a jogada
-      caso = 15;
-      @(negedge clock_in);
-      botoes_in = 4'b0100;
-      #(10*clockPeriod);
-      botoes_in = 4'b0000;
-      // espera entre rodadas
-      #(10*clockPeriod);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      // // Erra a jogada
+      // caso = 15;
+      // @(negedge clock_in);
+      // botoes_in = 4'b0100;
+      // #(10*clockPeriod);
+      // botoes_in = 4'b0000;
+      // // espera entre rodadas
+      // #(10*clockPeriod);
 
 
 
