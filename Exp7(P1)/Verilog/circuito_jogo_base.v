@@ -47,14 +47,6 @@ module circuito_jogo_base (
 	wire wireRamWE           ;
 
     wire wire_fim_mostra_led ;
-    // wire wireLed;
-    // and (wireLed, ~wire_fim_mostra_led, wire_conta_mostra_led);
-
-    // se estado = mostra leds, exibir valor de mem[0] = 0001; se não, mostrar botões
-    // assign leds = (db_estado == 4'b1100) ? 4'b0001 : botoes;
-    // assign leds = botoes | {3'b0, wireLed};
-    // or (leds[0], botoes[0], wireLed);
-
 
     /* assigns usados para contctar as saídas dos módulos abaixo
        com a saída desse circuito */
