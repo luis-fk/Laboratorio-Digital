@@ -7,7 +7,7 @@ module circuito_jogo_base (
     output       ganhou        ,
     output       perdeu        ,
     output       pronto        ,
-
+	 
     /* Sinais de depuração */
     output       db_iniciar    , 
     output       db_igual      ,
@@ -61,6 +61,7 @@ module circuito_jogo_base (
     assign db_iniciar = jogar  ;
     assign db_igual = wireIgual;
     assign s_chaves = botoes   ;
+	 assign db_clk = clock      ;
 	 
     /* fluxo de dados responsável pelo funcionamento do circuito 
        quando se trata de mudança de valores internos do sistema */
