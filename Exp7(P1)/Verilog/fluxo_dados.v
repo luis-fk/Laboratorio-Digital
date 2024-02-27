@@ -9,10 +9,8 @@ module fluxo_dados (
    input  [3:0] botoes      ,
    input  zeraInativo       ,
    input  contaInativo      ,
-
    input  zera_mostra_led   ,
    input  conta_mostra_led  ,
-
 	input  ramWE             ,
    output [3:0] leds        , // adicionado
    output inativo           ,
@@ -20,9 +18,7 @@ module fluxo_dados (
    output fim_jogada        ,
    output fim_rodada        ,
    output fim_jogo          ,
-
    output fim_mostra_led    ,
-
    output jogada_feita      ,
    output db_tem_jogada     ,
    output db_timeout        ,
@@ -30,7 +26,6 @@ module fluxo_dados (
    output [3:0] db_memoria  ,
    output [3:0] db_jogada   ,
    output [3:0] db_rodada   
-   // output [15:0] db_contagem_inativo
    );
 
     // sinais internos para interligacao dos componentes
@@ -67,7 +62,8 @@ module fluxo_dados (
       .pulso (  jogada_feita )
    );
 
-
+   /* mux utilizado para mostrar a primeira jogada da memoria e a partir desse ponto
+      mostrar os botões selecionados */
    mux2x1_n mux_leds(
       .D0 ( botoes ), 
       .D1 ( s_dado ), 
@@ -86,6 +82,7 @@ module fluxo_dados (
       .fim     (  fim_jogada    ),
       .meio    (                )
    );
+   
    /* contador responsável por contar as rodadas */
    contador_m contador_rodada (
       .clock   (  clock         ),

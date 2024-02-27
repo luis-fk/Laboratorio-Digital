@@ -1,16 +1,11 @@
 /* --------------------------------------------------------------------
- * Arquivo   : circuito_exp5_tb-MODELO.vhd
- * Projeto   : Experiencia 5 - Desenvolvimento de Projeto de 
- *             Circuitos Digitais em FPGA
+ * Arquivo   : circuito_jogo_base_c1_tb.v
+ * Projeto   : Experiencia 7
  * --------------------------------------------------------------------
- * Descricao : testbench Verilog MODELO para o desafio circuito da Experiencia 5 
+ * Descricao : testbench Verilog MODELO para o desafio circuito da Experiencia 7 
  *
  *             1) Plano de teste com timeout de Jogada já feita na 1ª Jogada da 2ª rodada
  *
- * --------------------------------------------------------------------
- * Revisoes  :
- *     Data        Versao  Autor             Descricao
- *     27/01/2024  1.0     Edson Midorikawa  versao inicial
  * --------------------------------------------------------------------
 */
 

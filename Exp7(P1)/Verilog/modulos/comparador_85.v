@@ -1,16 +1,11 @@
 /* -----------------------------------------------------------------
  *  Arquivo   : comparador_85.v
- *  Projeto   : Experiencia 3 - Um Fluxo de Dados Simples
+ *  Projeto   : Experiencia 7
  * -----------------------------------------------------------------
  * Descricao : comparador de magnitude de 4 bits 
  *             similar ao CI 7485
  *             baseado em descricao comportamental disponivel em	
  * https://web.eecs.umich.edu/~jhayes/iscas.restore/74L85b.v
- * -----------------------------------------------------------------
- * Revisoes  :
- *     Data        Versao  Autor             Descricao
- *     21/12/2023  1.0     Edson Midorikawa  criacao
- * -----------------------------------------------------------------
  */
 
 module comparador_85 (ALBi, AGBi, AEBi, A, B, ALBo, AGBo, AEBo);

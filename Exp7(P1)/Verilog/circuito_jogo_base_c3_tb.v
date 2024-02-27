@@ -1,9 +1,5 @@
-
-
-
-
 /* --------------------------------------------------------------------
- * Arquivo   : circuito_exp5_tb-MODELO.vhd
+ * Arquivo   : circuito_jogo_base_c3_tb.v
  * Projeto   : Experiencia 6
  * --------------------------------------------------------------------
  * Descricao : Teste para timeout de 1ª Jogada inédita da 2ª rodada

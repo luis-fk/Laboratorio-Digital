@@ -45,7 +45,6 @@ module circuito_jogo_base (
     wire wireZera_rodada     ;
     wire wireConta_rodada    ;
 	wire wireRamWE           ;
-
     wire wire_fim_mostra_led ;
 
     /* assigns usados para contctar as saídas dos módulos abaixo
@@ -53,7 +52,7 @@ module circuito_jogo_base (
     assign db_iniciar = jogar  ;
     assign db_igual = wireIgual;
     assign s_chaves = botoes   ;
-	 assign db_clk = clock      ;
+	assign db_clk = clock      ;
 	 
     /* fluxo de dados responsável pelo funcionamento do circuito 
        quando se trata de mudança de valores internos do sistema */
@@ -71,7 +70,7 @@ module circuito_jogo_base (
         .zera_mostra_led     (  wire_zera_mostra_led),
         .conta_mostra_led    (  wire_conta_mostra_led),
 		.ramWE               (  wireRamWE           ),
-        .leds                (  leds                ), //adicionado
+        .leds                (  leds                ),
 		.inativo             (  wireInativo         ),
         .jogada_igual        (  wireIgual           ),
         .fim_jogada          (  wireFim_jogada      ),
@@ -85,7 +84,6 @@ module circuito_jogo_base (
         .db_memoria          (  s_memoria           ),
         .db_jogada           (  wire_db_jogada      ),
         .db_rodada           (  wire_db_rodada      )
-		// .db_contagem_inativo (  s_contagem_inativo  )
     );
 
     /* responsável pela mudança de estados do sistema e envio
@@ -97,29 +95,25 @@ module circuito_jogo_base (
         .fim_jogada       (  wireFim_jogada       ), 
         .fim_rodada       (  wireFim_rodada       ),
         .fim_jogo         (  wireFim_jogo         ),
-
         .fim_mostra_led   (  wire_fim_mostra_led  ),
-
         .jogada           (  wireJogada           ), 
         .jogada_igual     (  wireIgual            ),
 		.inativo          (  wireInativo          ),
-
-        .conta_mostra_led ( wire_conta_mostra_led),
-        .zera_mostra_led  ( wire_zera_mostra_led),
-
-        .zera_jogada   (  wireZera_jogada   ),
-        .conta_jogada  (  wireConta_jogada  ),
-        .zera_rodada   (  wireZera_rodada   ),
-        .conta_rodada  (  wireConta_rodada  ),
-		.contaInativo  (  wireContaInativo  ),
-        .zeraR         (  wireZeraR         ),
-		.zeraInativo   (  wireZeraInativo   ),
-        .registraR     (  wireRegistraR     ),
-        .ganhou        (  ganhou            ),
-        .perdeu        (  perdeu            ),
-        .pronto        (  pronto            ),
-        .db_estado     (  s_estado          ),
-		.ramWE         (  wireRamWE         )
+        .conta_mostra_led ( wire_conta_mostra_led ),
+        .zera_mostra_led  ( wire_zera_mostra_led  ),
+        .zera_jogada      (  wireZera_jogada      ),
+        .conta_jogada     (  wireConta_jogada     ),
+        .zera_rodada      (  wireZera_rodada      ),
+        .conta_rodada     (  wireConta_rodada     ),
+		.contaInativo     (  wireContaInativo     ),
+        .zeraR            (  wireZeraR            ),
+		.zeraInativo      (  wireZeraInativo      ),
+        .registraR        (  wireRegistraR        ),
+        .ganhou           (  ganhou               ),
+        .perdeu           (  perdeu               ),
+        .pronto           (  pronto               ),
+        .db_estado        (  s_estado             ),
+		.ramWE            (  wireRamWE            )
     );
 	 
 

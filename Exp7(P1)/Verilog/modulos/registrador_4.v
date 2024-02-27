@@ -9,7 +9,7 @@
 //     Data        Versao  Autor             Descricao
 //     14/12/2023  1.0     Edson Midorikawa  versao inicial
 //------------------------------------------------------------------
-//
+
 module registrador_4 (
     input        clock ,
     input        clear ,

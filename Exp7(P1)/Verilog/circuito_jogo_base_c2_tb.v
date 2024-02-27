@@ -1,8 +1,8 @@
 /* --------------------------------------------------------------------
- * Arquivo   : circuito_exp5_tb-MODELO.vhd
+ * Arquivo   : circuito_jogo_base_c2_tb.v
  * Projeto   : Experiencia 6
  * --------------------------------------------------------------------
- * Descricao : testbench Verilog para circuito da Experiencia 6 
+ * Descricao : testbench Verilog para circuito da Experiencia 7
  *
  *             1) Plano de teste Timeout de 1ª Jogada inédita da 2ª rodada 
  *

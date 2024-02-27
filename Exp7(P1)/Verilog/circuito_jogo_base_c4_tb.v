@@ -1,8 +1,8 @@
 /* --------------------------------------------------------------------
- * Arquivo   : circuito_exp5_tb-MODELO.vhd
- * Projeto   : Experiencia 6
+ * Arquivo   : circuito_jogo_base_c4_tb.v
+ * Projeto   : Experiencia 7
  * --------------------------------------------------------------------
- * Descricao : testbench Verilog para circuito da Experiencia 6 
+ * Descricao : testbench Verilog para circuito da Experiencia 7 
  *
  *             1) Plano de teste com todas as jogadas certas 
  *
