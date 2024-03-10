@@ -10,9 +10,9 @@ modulos/registrador_4.v
 modulos/mux2x1_n.v
 modulos/sync_ram_16x4_file.v
 circuito_jogo_base.v
-circuito_jogo_base_c1_tb.v
-circuito_jogo_base_c2_tb.v
-circuito_jogo_base_c3_tb.v
-circuito_jogo_base_c4_tb.v
 fluxo_dados.v
 unidade_controle.v
+# testbenches/circuito_jogo_base_c1_tb.v
+# testbenches/circuito_jogo_base_c2_tb.v
+# testbenches/circuito_jogo_base_c3_tb.v
+# testbenches/circuito_jogo_base_c4_tb.v
